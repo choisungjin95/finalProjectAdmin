@@ -9,5 +9,6 @@ public class QnaController {
 	public String qna() {
 		return ".admin.qna";
 	}
+	
 }
 
