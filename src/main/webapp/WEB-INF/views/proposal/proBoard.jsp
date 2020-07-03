@@ -8,6 +8,7 @@
 		<th>지점명</th>
 		<th>요청일</th>
 		<th>상태</th>
+		
 
 	<tr>
 		<c:forEach var="list" items="${list}">
