@@ -21,7 +21,7 @@
           <a class="nav-link" href="#">상영상황 조회</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">고객센터</a>
+          <a class="nav-link" href="${cp}/admin/qna.do">고객센터</a>
         </li>
       </ul>
     </div>

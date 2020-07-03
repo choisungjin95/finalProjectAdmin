@@ -6,4 +6,5 @@
 	<select id="getinfo" parameterType="int" resultType="film">
 		select * from film where filmNum=#{filmNum} 
 	</select>
+	
 </mapper>
