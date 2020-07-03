@@ -6,5 +6,17 @@
 	<select id="getinfo" parameterType="int" resultType="film">
 		select * from film where filmNum=#{filmNum} 
 	</select>
+	<resultMap type="hashMap" id="getResultMap">
+		<id column="t.totalPeople" property="totalPeople"/>
+		<id column="t.totalPrice" property="totalPrice"/>
+		<id column="t.totalDate" property="totalDate"/>
+		<id column="f.fileName" property="fileName"/>
+	</resultMap>
+	
+	<select id="getIncome" parameterType="string" resultMap="getResultMap">
+		select t.totalPeople,t.totalPrice,t.totalDate,f.fileName from total t,film f where f.filmName=#{fileName} 
+		and t.filmNum = f.fileNum
+	</select>
+	
 	
 </mapper>
