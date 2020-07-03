@@ -20,5 +20,6 @@ public class ProposalController {
 		model.addAttribute("list",list);
 		System.out.println("con:"+list);
 		return ".proposal.proBoard";
+		
 	}
 }
