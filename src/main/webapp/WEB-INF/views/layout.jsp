@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
 </head>
 <body>
+
 <div id="wrap">
 	<div id="header">
 		<tiles:insertAttribute name="header"/>
