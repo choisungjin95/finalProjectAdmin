@@ -5,15 +5,69 @@
 <configuration>
   <typeAliases>
   	<typeAlias type="com.jhta.projectdb.vo.MembersVo" alias="members"/>
+  	<typeAlias type="com.jhta.projectdb.vo.ActorVo" alias="actor"/>
+  	<typeAlias type="com.jhta.projectdb.vo.AskVo" alias="ask"/>
+  	<typeAlias type="com.jhta.projectdb.vo.BookVo" alias="book"/>
+  	<typeAlias type="com.jhta.projectdb.vo.BranchVo" alias="branch"/>
+  	<typeAlias type="com.jhta.projectdb.vo.BrInfoVo" alias="brinfo"/>
+  	<typeAlias type="com.jhta.projectdb.vo.CastVo" alias="cast"/>
+  	<typeAlias type="com.jhta.projectdb.vo.ChargeVo" alias="charge"/>
+  	<typeAlias type="com.jhta.projectdb.vo.CuponDetailVo" alias="cupondetail"/>
+  	<typeAlias type="com.jhta.projectdb.vo.CuponVo" alias="cupon"/>
+  	<typeAlias type="com.jhta.projectdb.vo.DivisionVo" alias="division"/>
+  	<typeAlias type="com.jhta.projectdb.vo.FilmVo" alias="film"/>
+  	<typeAlias type="com.jhta.projectdb.vo.GenreVo" alias="genre"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MembershipVo" alias="membership"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MileVo" alias="mile"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MissingVo" alias="missing"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MovieImgVo" alias="movieimg"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MReviewVo" alias="mreview"/>
+  	<typeAlias type="com.jhta.projectdb.vo.MScheduleVo" alias="mschedule"/>
+  	<typeAlias type="com.jhta.projectdb.vo.ProposalVo" alias="proposal"/>
+  	<typeAlias type="com.jhta.projectdb.vo.QnaVo" alias="qna"/>
+  	<typeAlias type="com.jhta.projectdb.vo.ReplyVo" alias="reply"/>
+  	<typeAlias type="com.jhta.projectdb.vo.RevenueVo" alias="revenue"/>
+  	<typeAlias type="com.jhta.projectdb.vo.SalaryVo" alias="salary"/>
+  	<typeAlias type="com.jhta.projectdb.vo.SeatVo" alias="seat"/>
+  	<typeAlias type="com.jhta.projectdb.vo.StaffTypeVo" alias="stafftype"/>
+  	<typeAlias type="com.jhta.projectdb.vo.StaffVo" alias="staff"/>
+  	<typeAlias type="com.jhta.projectdb.vo.StoreInfoVo" alias="storeinfo"/>
+  	<typeAlias type="com.jhta.projectdb.vo.StoreVo" alias="store"/>
+  	<typeAlias type="com.jhta.projectdb.vo.TheatherVo" alias="theather"/>
+  	<typeAlias type="com.jhta.projectdb.vo.TotalVo" alias="total"/>
+  	<typeAlias type="com.jhta.projectdb.vo.WScheduleVo" alias="wschedule"/>
   </typeAliases>
   <mappers>
+  <mapper resource="com/jhta/mybatis/mapper/ActorMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/AskMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/BookMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/BranchMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/BrInfoMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/CastMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/ChargeMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/CuponDetailMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/CuponMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/DivisionMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/FilmMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/GenreMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MembershipMapper.xml"/>
     <mapper resource="com/jhta/mybatis/mapper/MembersMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MileMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MissingMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MovieImgMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MReviewMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/MScheduleMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/ProposalMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/QnaMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/ReplyMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/RevenueMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/SalaryMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/SeatMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/StaffMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/StaffTypeMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/StoreMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/TheatherMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/TotalMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/mapper/WScheduleMapper.xml"/>
   </mappers>
 </configuration>
-
-
-
-
-
-
-
