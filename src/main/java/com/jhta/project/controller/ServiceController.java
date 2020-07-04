@@ -34,6 +34,7 @@ public class ServiceController {
 		return ".service.qna.update";
 	}
 	
+	
 	@RequestMapping("/service/qna/updateOk.do")
 	public String qnaUpdateOk(QnaVo vo) {
 		int n=qnaService.update(vo);
