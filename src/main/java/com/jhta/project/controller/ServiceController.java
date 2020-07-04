@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jhta.page.util.PageUtil;
+import com.jhta.project.service.AskService;
 import com.jhta.project.service.QnaService;
+import com.jhta.project.vo.AskVo;
 import com.jhta.project.vo.QnaVo;
+import com.jhta.project.vo.ReplyVo;
 
 @Controller
 public class ServiceController {
 	@Autowired
 	private QnaService qnaService;
+	@Autowired
+	private AskService askService;
 	
 	@RequestMapping("/service/service.do")
 	public String service() {
@@ -77,5 +82,28 @@ public class ServiceController {
 			return "error";
 		}
 	}
+	
+	//질문 목록(성진)
+		@RequestMapping("/service/reply/askList.do")
+		public String askList(Model model) {
+			List<AskVo> list=askService.list();
+			model.addAttribute("list",list);
+			return ".service.reply.reply";
+		}
+		//질문 자세히 보기(성진)
+		@RequestMapping("/service/reply/getinfo.do")
+		public String getInfo(int askNum,Model model) {
+			AskVo vo=askService.getinfo(askNum);
+			model.addAttribute("vo", vo);
+			return ".service.reply.getinfo";
+		}
+		//질문 답변하기(성진)
+		@RequestMapping("/service/reply/insert.do")
+		public String replyInsert(ReplyVo vo) {
+			int n=askService.replyInsert(vo);
+//			AskVo vo2=askService.getinfo(vo.getAskNum());
+//			System.out.println(vo2.getAskNum());
+			return "redirect:/service/reply/askList.do";
+		}
 }
 

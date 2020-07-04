@@ -6,4 +6,8 @@
 	<select id="getinfo" parameterType="int" resultType="reply">
 		select * from reply where revenueNum=#{revenueNum}
 	</select>
+	<insert id="insert" parameterType="reply">
+		insert into reply(replyNum,staffId,qnaTitle,replyContent,replyRegdate,askNum)
+		values(replyNum.nextval,#{staffId},#{qnaTitle},#{replyContent},sysdate,#{askNum})
+	</insert>
 </mapper>

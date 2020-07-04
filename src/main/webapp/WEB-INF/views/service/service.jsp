@@ -4,7 +4,7 @@
 <h1>QnA 목록...</h1>
 <table>
 	<tr>
-		<th><a href="#">성진이꺼</a></th>
+		<th><a href="${cp }/service/reply/askList.do">성진이꺼</a></th>
 		<th></th>
 	</tr>
 	<tr>
