@@ -6,4 +6,22 @@
 	<select id="getinfo" parameterType="int" resultType="qna">
 		select * from qna where qnaNum=#{qnaNum}
 	</select>
+	<insert id="insert" parameterType="qna">
+		insert into qna(qnaNum,qnaTitle,qnaContent)
+		values(qnaNum.nextval,#{qnaTitle},#{qnaContent})
+	</insert>
+	<select id="list" resultType="qna" parameterType="hashmap">
+		select * from (select qna.*,rownum rnum 
+			from (select * from qna order by qnaNum desc)qna
+		<![CDATA[ ) where rnum >= #{startRow} and rnum <=#{endRow}]]>
+	</select>
+	<update id="update" parameterType="qna">
+		update qna set qnaTitle=#{qnaTitle},qnaContent=#{qnaContent} where qnaNum=#{qnaNum}	
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from qna where qnaNum=#{qnaNum}
+	</delete>
+	<select id="count" resultType="int">
+		select nvl(count(*),0) from qna
+	</select>
 </mapper>
