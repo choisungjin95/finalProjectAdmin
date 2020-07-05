@@ -4,10 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.proposal">
 	<select id="getinfo" parameterType="int" resultType="proposal">
-		select * from proposal where proNum=#{proNum}
+		select *
+		from proposal where proNum=#{proNum}
 	</select>
-	
+
 	<select id="selectList" resultType="proposal">
 		select * from proposal
+	</select>
+
+	<select id="pagingTotal" resultType="int">
+		select count(*) from
+		proposal
+	</select>
+
+	<select id="selectNowPage" parameterType="map"
+		resultType="proposal">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM proposal
+		ORDER BY proNum
+		) A
+		)
+		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 </mapper>

@@ -16,4 +16,15 @@ public class ProposalService {
 		System.out.println("service:"+list);
 		return list;
 	}
+	
+	public int totalPageNum() {
+		int totalPNum=proDao.totalPageNum();
+		return totalPNum;
+	}
+	public List<ProposalVo> getRowNums() {
+		List<ProposalVo> list=proDao.getRowNums();
+		return list;
+	}
+	
+	
 }
