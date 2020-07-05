@@ -71,9 +71,18 @@
 			<artifactId>tiles-core</artifactId>
 			<version>3.0.8</version>
 		</dependency>
-
-
-		<!-- //////////////////////////////////////////////////////// -->
+		<!--구글 차트 api -->
+		<dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+        <!-- //////////////////////////////////////////////////////// -->
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

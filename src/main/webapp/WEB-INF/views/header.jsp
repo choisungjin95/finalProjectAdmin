@@ -12,7 +12,7 @@
           <a class="nav-link" href="#">영화 구매/판매</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">통계</a>
+          <a class="nav-link" href="${cp}/admin/movieIncome">통계</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">지점관리</a>
