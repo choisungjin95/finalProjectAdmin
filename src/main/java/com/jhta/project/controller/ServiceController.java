@@ -51,15 +51,15 @@ public class ServiceController {
 	}
 	
 	
-	@RequestMapping("/service/qna/updateOk.do")
-	public String qnaUpdateOk(QnaVo vo) {
-		int n=qnaService.update(vo);
-		if(n>0) {
-			return "redirect:/service/qna/list.do";
-		}else {
-			return "error";
-		}
-	}
+//	@RequestMapping("/service/qna/updateOk.do")
+//	public String qnaUpdateOk(QnaVo vo) {
+//		int n=qnaService.update(vo);
+//		if(n>0) {
+//			return "redirect:/service/qna/list.do";
+//		}else {
+//			return "error";
+//		}
+//	}
 	
 	@RequestMapping("/service/qna/delete.do")
 	public String qnaDelete(Model model,int qnaNum) {
