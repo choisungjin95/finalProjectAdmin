@@ -40,6 +40,31 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
 	</context:component-scan>
 	
+	<!-- 어노테이션 기반 트랜잭션 설정하기 -->
+	<bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<aop:aspectj-autoproxy/>
+	
+	
+	<!-- 메일보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	   <property name="host" value="smtp.gmail.com" />
+	   <property name="port" value="587" />
+	   <property name="username" value="maple950205@gmail.com" />
+	   <property name="password" value="xptmxm1234" />
+	   <property name="javaMailProperties">
+	      <props>
+	            <prop key="mail.transport.protocol">smtp</prop>
+	            <prop key="mail.smtp.auth">true</prop>
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	            <prop key="mail.debug">true</prop>
+	      </props>
+	   </property>
+	</bean>
+   
 </beans>
 
 

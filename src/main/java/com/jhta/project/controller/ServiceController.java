@@ -3,14 +3,21 @@ package com.jhta.project.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jhta.page.util.PageUtil;
+import com.jhta.project.service.AskServiceTr;
 import com.jhta.project.service.AskService;
+import com.jhta.project.service.AskServiceImpl;
 import com.jhta.project.service.QnaService;
 import com.jhta.project.vo.AskVo;
 import com.jhta.project.vo.QnaVo;
@@ -21,7 +28,11 @@ public class ServiceController {
 	@Autowired
 	private QnaService qnaService;
 	@Autowired
+	private AskServiceTr askServiceTr;
+	@Autowired
 	private AskService askService;
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@RequestMapping("/service/service.do")
 	public String service() {
@@ -101,17 +112,42 @@ public class ServiceController {
 	public String getInfo(int askNum,Model model) {
 		AskVo vo=askService.askGetinfo(askNum);
 		ReplyVo vo1=askService.replyGetinfo(askNum);
+		
+		System.out.println(vo+"vo");
+		System.out.println(vo1+"vo1");
+		
 		model.addAttribute("vo", vo);
 		model.addAttribute("vo1", vo1);
 		return ".service.reply.getinfo";
 	}
 	//질문 답변하기(성진)
 	@RequestMapping("/service/reply/insert.do")
-	public String replyInsert(ReplyVo vo) throws Exception {
+	public String replyInsert(ReplyVo vo,HttpServletRequest request){
 		
-		int n=askService.replyInsert(vo);
-		int n1=askService.respUpdate(vo.getAskNum());
+		int n=askServiceTr.replyInsert(vo);
+		AskVo vo1=askService.askGetinfo(vo.getAskNum());
 		
+		System.out.println("질문한 사람 이메일"+vo1.getEmail());
+		
+	    String setfrom = "test@gmail.com"; //보내는 사람 이메일
+	    String tomail  = /*vo1.getEmail();*/"test@gmail.com"; //받는 사람 이메일
+	    String title   = "메가c네마 : 문의하신 질문 답변완료"; //메일 제목
+	    String content = "제목["+vo.getQnaTitle()+"]\n내용:"+vo.getReplyContent(); //메일 내용
+	    
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper 
+	                          = new MimeMessageHelper(message, true, "UTF-8");
+	   
+	        messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(tomail);     // 받는사람 이메일
+	        messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	        messageHelper.setText(content);  // 메일 내용
+	       
+	        mailSender.send(message);
+	      } catch(Exception e){
+	        System.out.println(e);
+	      }
 		
 		return "redirect:/service/reply/askList.do";
 	}
@@ -119,6 +155,30 @@ public class ServiceController {
 	@RequestMapping("/service/reply/update.do")
 	public String replyUpdate(ReplyVo vo) {
 		int n=askService.replyUpdate(vo);
+		AskVo vo1=askService.askGetinfo(vo.getAskNum());
+		
+		System.out.println("질문한 사람 이메일"+vo1.getEmail());
+		
+		String setfrom = "maple950205@gmail.com"; //보내는 사람 이메일
+	    String tomail  = /*vo1.getEmail();*/"choisungjin95@gmail.com"; //받는 사람 이메일
+	    String title   = "메가c네마 : 문의하신 질문 답변이 수정됬습니다"; //메일 제목
+	    String content = "제목["+vo.getQnaTitle()+"]\n내용:"+vo.getReplyContent(); //메일 내용
+	    
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper 
+	                          = new MimeMessageHelper(message, true, "UTF-8");
+	   
+	        messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(tomail);     // 받는사람 이메일
+	        messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	        messageHelper.setText(content);  // 메일 내용
+	       
+	        mailSender.send(message);
+	      } catch(Exception e){
+	        System.out.println(e);
+	      }
+		
 		return "redirect:/service/reply/askList.do";
 	}
 }

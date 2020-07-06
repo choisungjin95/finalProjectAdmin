@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.reply">
 	<select id="getinfo" parameterType="int" resultType="reply">
-		select * from reply where askNum=#{askNum} or replyNum=#{replyNum}
+		select * from reply where askNum=#{askNum}
 	</select>
 	<insert id="insert" parameterType="reply">
 		insert into reply(replyNum,staffId,qnaTitle,replyContent,replyRegdate,askNum)

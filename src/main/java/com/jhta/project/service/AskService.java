@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.jhta.project.dao.AskDao;
 import com.jhta.project.vo.AskVo;
@@ -34,9 +33,9 @@ public class AskService {
 		return dao.respUpdate(askNum);
 	}
 	
-	public int replyInsert(ReplyVo vo) {
-		return dao.replyInsert(vo);
-	}
+//	public int replyInsert(ReplyVo vo) {
+//		return dao.replyInsert(vo);
+//	}
 	public int count() {
 		return dao.count();
 	}

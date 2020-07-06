@@ -5,36 +5,54 @@
 
 <div class="container">
 	<div class="bg-contact2">
-		<h2>문의</h2>
-		아이디 <input type="text" name="memId" value="${vo.memId }" readonly="readonly"><br>
-		제목 <input type="text" name="qnaTitle" value="${vo.qnaTitle }" readonly="readonly"><br>
-		내용 <input type="text" name="askContent" value="${vo.askContent }" readonly="readonly"><br>
-		<textarea name="askContent" readonly="readonly" rows="5" cols="50">${vo.askContent }</textarea><br>
-		<fmt:formatDate value="${vo.askRegdate }" pattern="yyyy-MM-dd" var="regdate"/>
-		등록일 <input type="text" name="askRegdate" value="${regdate }" readonly="readonly"><br>
-		<br>
-		
-		<h2>답변</h2>
+		<h2 style="text-align: center">문의</h2>
+		<table border="1" width="500" class="table table-striped table-bordered no-wrap dataTable" role="grid" aria-describedby="zero_config_info">
+			<thead>
+				<tr>
+					<th>제목</th>
+						<td>${vo.qnaTitle }</td>
+					<th>아이디</th>
+						<td>${vo.memId }</td>
+					<th>문의일</th>
+						<fmt:formatDate value="${vo.askRegdate }" pattern="yyyy-MM-dd" var="regdate"/>
+						<td>${regdate }</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>내용</th>
+					<td colspan="5">${vo.askContent }</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 style="text-align: center">답변</h2>
 		<c:choose>
 			<c:when test="${vo1.replyNum > 0 }">
 				<form method="post" action="${cp }/service/reply/update.do">
 					<input type="hidden" name="askNum" value="${vo.askNum }">
 					<input type="hidden" name="staffId" value="${vo.memId }">
 					<input type="hidden" name="replyNum" value="${vo1.replyNum }">
-					제목 <input type="text" name="qnaTitle" value="${vo1.qnaTitle }"><br> <!-- 답변 제목 -->
-					내용 <textarea rows="5" cols="50" name="replyContent">${vo1.replyContent }</textarea><br> <!-- 답변 내용 -->
-					<input type="submit" value="저장">
-					<input type="button" value="돌아가기" onclick="location.href='${cp }/service/reply/askList.do'">
+					<label for="qnaTitle">제목</label>
+					<input type="text" name="qnaTitle" value="${vo1.qnaTitle }" class="form-control" id="qnaTitle"><br> <!-- 답변 제목 -->
+					<label for="replyContent">내용</label>
+					<textarea rows="5" cols="50" name="replyContent" class="form-control" id="replyContent">${vo1.replyContent }</textarea><br> <!-- 답변 내용 -->
+					<input type="submit" value="저장" class="btn btn-primary">
+					<input type="button" value="돌아가기" onclick="history.go(-1)" class="btn btn-primary">
 				</form>
 			</c:when>
 			<c:otherwise>
 				<form method="post" action="${cp }/service/reply/insert.do">
-					<input type="hidden" name="askNum" value="${vo.askNum }">
-					<input type="hidden" name="staffId" value="${vo.memId }">
-					제목 <input type="text" name="qnaTitle" value="${vo1.qnaTitle }"><br> <!-- 답변 제목 -->
-					내용 <textarea rows="5" cols="50" name="replyContent">${vo1.replyContent }</textarea><br> <!-- 답변 내용 -->
-					<input type="submit" value="저장">
-					<input type="button" value="돌아가기" onclick="location.href='${cp }/service/reply/askList.do'">
+					<div class="form-group">
+						<input type="hidden" name="askNum" value="${vo.askNum }">
+						<input type="hidden" name="staffId" value="${vo.memId }">
+						<label for="qnaTitle">제목</label>
+						<input type="text" name="qnaTitle" value="${vo1.qnaTitle }" class="form-control" id="qnaTitle"><br> <!-- 답변 제목 -->
+						<label for="replyContent">내용</label>
+						<textarea rows="5" cols="50" name="replyContent" class="form-control" id="replyContent">${vo1.replyContent }</textarea><br> <!-- 답변 내용 -->
+						<input type="submit" value="저장" class="btn btn-primary">
+						<input type="button" value="돌아가기" onclick="history.go(-1)" class="btn btn-primary">
+					</div>
 				</form>
 			</c:otherwise>
 		</c:choose>
