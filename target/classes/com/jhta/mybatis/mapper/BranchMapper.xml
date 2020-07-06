@@ -25,7 +25,7 @@
 		)
 		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
-	<select id="count" resultType="int">
+	<select id="count" resultType="int" parameterType="hashmap">
 		select NVL(count(*),0) cnt from branch
 		<include refid="search"/>
 	</select>

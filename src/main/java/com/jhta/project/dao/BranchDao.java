@@ -17,8 +17,8 @@ public class BranchDao {
 	public List<BranchVo> list(HashMap<String,Object> map){
 		return sqlSession.selectList(NAMESPAME+".list", map);
 	}
-	public int count() {
-		return sqlSession.selectOne(NAMESPAME+".count");
+	public int count(HashMap<String,Object> map) {
+		return sqlSession.selectOne(NAMESPAME+".count", map);
 	}
 
 }

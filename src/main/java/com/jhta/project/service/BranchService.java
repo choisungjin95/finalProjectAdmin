@@ -16,8 +16,8 @@ public class BranchService {
 	public List<BranchVo> list(HashMap<String,Object> map){
 		return dao.list(map);
 	}
-	public int count() {
-		return dao.count();
+	public int count(HashMap<String,Object> map) {
+		return dao.count(map);
 	}
 
 }

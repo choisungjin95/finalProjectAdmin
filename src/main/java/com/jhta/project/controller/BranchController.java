@@ -24,8 +24,8 @@ public class BranchController {
 		ModelAndView mv=new ModelAndView(".branch.branch");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("keyword", keyword);
-		int totalRowCount=service.count(); //전체글갯수
-		PageUtil pu=new PageUtil(pageNum, totalRowCount,15,10);
+		int totalRowCount=service.count(map); //전체글갯수
+		PageUtil pu=new PageUtil(pageNum, totalRowCount,10,10);
 		System.out.println(pageNum);
 		System.out.println(totalRowCount);
 		map.put("startRow", pu.getStartRow());
