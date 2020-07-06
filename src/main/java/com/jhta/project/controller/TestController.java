@@ -9,15 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jhta.page.util.PageUtil;
 import com.jhta.project.service.AskService;
 import com.jhta.project.service.QnaService;
+import com.jhta.project.service.TestService;
 import com.jhta.project.vo.AskVo;
 import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.ReplyVo;
 
 @Controller
-public class ServiceController {
+public class TestController {
+	@Autowired
+	private TestService testService;
 	@Autowired
 	private QnaService qnaService;
 	@Autowired
@@ -40,15 +45,15 @@ public class ServiceController {
 	}
 	
 	
-//	@RequestMapping("/service/qna/updateOk.do")
-//	public String qnaUpdateOk(QnaVo vo) {
-//		int n=qnaService.update(vo);
-//		if(n>0) {
-//			return "redirect:/service/qna/list.do";
-//		}else {
-//			return "error";
-//		}
-//	}
+	@RequestMapping("/service/qna/updateOk.do")
+	public String qnaUpdateOk(QnaVo vo) {
+		int n=qnaService.update(vo);
+		if(n>0) {
+			return "redirect:/service/qna/list.do";
+		}else {
+			return "error";
+		}
+	}
 	
 	@RequestMapping("/service/qna/delete.do")
 	public String qnaDelete(Model model,int qnaNum) {
@@ -74,8 +79,12 @@ public class ServiceController {
 	}
 	
 	@RequestMapping("/service/qna/insertOk.do")
-	public String qnaInsertOk(QnaVo vo) {
-		int n=qnaService.insert(vo);
+	public String qnaInsertOk(QnaVo vo) throws JsonProcessingException {
+		String url="http://192.168.0.12:9090/projectdb/service/qna/insertOk.do";
+		ObjectMapper mapper=new ObjectMapper();
+		String jsonString= mapper.writeValueAsString(vo);
+		String view=testService.post(url,jsonString);
+		int n=Integer.parseInt(view.trim());
 		if(n>0) {
 			return "redirect:/service/qna/list.do";
 		}else {
