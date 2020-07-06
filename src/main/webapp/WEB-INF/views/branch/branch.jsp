@@ -41,10 +41,10 @@
 		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 			<c:choose>
 				<c:when test="${i==pu.pageNum }">
-					<li class="page-item active"><a class="page-link" href="/projectAdmin/branch?pageNum=${i }&keyword=${keyword}">${i }</a></li>
+					<li class="page-item active"><a class="page-link" href="/projectAdmin/branch.do?pageNum=${i }&keyword=${keyword}">${i }</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item"><a class="page-link" href="/projectAdmin/branch?pageNum=${i }&keyword=${keyword}">${i }</a></li>				
+					<li class="page-item"><a class="page-link" href="/projectAdmin/branch.do?pageNum=${i }&keyword=${keyword}">${i }</a></li>				
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -52,7 +52,7 @@
 </div>
 <!-- 검색 -->
 <div class="container3">
-<form class="form-inline" method="post" action="/projectAdmin/branch">
+<form class="form-inline" method="post" action="/projectAdmin/branch.do">
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
 			<span class="input-group-text"><i class="fas fa-search"></i></span>

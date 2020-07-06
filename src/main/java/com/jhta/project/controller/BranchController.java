@@ -19,7 +19,7 @@ public class BranchController {
 	@Autowired
 	private BranchService service;
 	
-	@RequestMapping("/branch")
+	@RequestMapping("/branch.do")
 	public ModelAndView list(@RequestParam(value="pageNum",defaultValue="1")int pageNum,String keyword) {
 		ModelAndView mv=new ModelAndView(".branch.branch");
 		HashMap<String, Object> map=new HashMap<String, Object>();
