@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Movie</a>
+    <a class="navbar-brand" href="${cp }/">Movie</a>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="${cp }/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">영화 구매/판매</a>
+          <a class="nav-link" href="${cp }/movieinfo/movie.do">영화 구매/판매</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">통계</a>

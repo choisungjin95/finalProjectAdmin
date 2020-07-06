@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+h3{
+	text-align: center;
+}
+
+table {
+	border-collapse: collapse;
+}
+#mo_inline{
+	display:inline-block;
+}
+#MovieSearchInput{
+	display:inline-block;
+	width:200px;
+	border: 6px solid #fa3246;
+}
+
+.wrap{
+	margin-top: -13px;
+}
+
+tbody>tr>td, thead>th {
+	border-bottom: 1px solid white;
+	border-top: 1px solid white;
+	font-size: 12pt;
+	height:40px;
+    text-align: center;
+}
+
+tbody>tr>td {
+	text-align: center;
+
+}
+
+
