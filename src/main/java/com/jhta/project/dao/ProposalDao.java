@@ -20,14 +20,27 @@ public class ProposalDao {
 		return list;
 	}
 	
-	public int totalPageNum() {
-		int totalPNum=session.selectOne(NAMESPACE+".pagingTotal");
-		return totalPNum;
+	public int totalRowNum() {
+		int totalRowNum=session.selectOne(NAMESPACE+".count");
+		return totalRowNum;
 	}
-	public List<ProposalVo> getRowNums() {
-		Map<String, Integer> parameters = new HashMap<String, Integer>();
-		parameters.put("start", 1);
-		parameters.put("end", 10);
-		return session.selectList(NAMESPACE+".selectNowPage", parameters);
+	
+	public ProposalVo getinfo(int proNum){
+		return session.selectOne(NAMESPACE+".getinfo",proNum);
 	}
+	
+	//startPageRow~ endPageRow 
+	public List<ProposalVo> getRowNums(HashMap<String, Object> map) {
+		return session.selectList(NAMESPACE+".selectNowPage", map);
+	}
+	//게시판 상세에서 다음글 불러오는 함수
+	public ProposalVo getNextTitle(int proNum) {
+		return session.selectOne(NAMESPACE+".nextTitle",proNum);
+	}
+	//게시판 상세에서 이전글 불러오는 함수
+	public ProposalVo getPreTitle(int proNum) {
+		System.out.println(proNum);
+		return session.selectOne(NAMESPACE+".preTitle",proNum);
+	}
+	
 }

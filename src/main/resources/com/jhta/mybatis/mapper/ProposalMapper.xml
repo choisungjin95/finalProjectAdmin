@@ -12,12 +12,33 @@
 		select * from proposal
 	</select>
 
-	<select id="pagingTotal" resultType="int">
-		select count(*) from
+	<select id="count" resultType="int">
+		select nvl(count(*),0) from
 		proposal
+		
 	</select>
 
-	<select id="selectNowPage" parameterType="map"
+	<select id="nextTitle" parameterType="int" resultType="proposal">
+		select * from
+		(
+			select * from proposal where proNum>#{proNum}
+			order by proNum asc
+		)
+		where rownum=1
+	</select>	
+	
+	<select id="preTitle" parameterType="int" resultType="proposal">
+		<![CDATA[
+		select* from
+		(
+			select * from proposal where proNum < #{proNum}
+			order by proNum desc
+		)
+		where rownum=1
+		]]>
+	</select>
+	
+	<select id="selectNowPage" parameterType="hashmap"
 		resultType="proposal">
 		SELECT *
 		FROM (
@@ -28,6 +49,6 @@
 		ORDER BY proNum
 		) A
 		)
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 </mapper>
