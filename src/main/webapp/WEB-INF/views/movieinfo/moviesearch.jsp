@@ -5,6 +5,7 @@
 	href="${pageContext.request.contextPath}/resources/css/moviesearch.css">
 <script>
 	//crossDomain 해결코드
+	/*
 	$(function() {
 		$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 			if (options.crossDomain && jQuery.support.cors) {
@@ -13,11 +14,10 @@
 		});
 	});
 	
-	//검색결과 받아오는 함수 시작	
+	*/
+	
+
 	$(function() {
-		// 발급받은 네이버 id랑 시크릿키 변수로 선언해줌
-		var XNaverClientId = "qf1ksFUxXZziynfLDCaS";
-		var XNaverClientSecret = "hjtFhODhB6";
 		$.popup = function() {
 			$('.wrap3').css('display','block');
 		}
@@ -33,24 +33,16 @@
 				$("#query").val("검색어");
 			}
 			$.ajax({
-						crossDomain : true,
 						context : this,
 						traditional : true,
 						//json 요청 url
-						url : "https://openapi.naver.com/v1/search/movie.json",
+						url : "${pageContext.request.contextPath}/movieinfo/moviesearchOk.do",
 						method : "GET",
 						type : "GET",
 						dataType : "JSON",
 						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-						headers : {
-							//네이버에서 발급받은 아이디랑 시크릿키 입력
-							"X-Naver-Client-Id" : XNaverClientId,
-							"X-Naver-Client-Secret" : XNaverClientSecret
-						},
-						//Form의 값을 전달해줌
 						data : $("#serviceAPISearchForm").serialize(),
 						success : function(data, textStatus, jqXHR) {
-							
 							if (data != null) {
 								//JSON을 문자열로 바꿔줌
 								var json = JSON.stringify(data);
@@ -62,22 +54,22 @@
 									var thead2 = $("<thead/>").append(
 											$("<tr/>")).append(
 									//추출하고자 하는 컬럼들의 타이틀 정의
-											$("<th />").html("포스터"),
+											$("<th/>").html("포스터"),
 											$("<th width='200px;'/>").html("영화제목"),
 											$("<th width='300px;'/>").html("감독"),
 											$("<th width='500px;'/>").html("주연배우"),
 											$("<th width='100px;'/>").html("평점"));
 									var tbody2 = $("<tbody/>");
 									var item = JSON.parse(json);
-									$.each(item.items, function(i) {
-														var data = item.items;
+									$(item.items).each(function(i,data1) {
+											console.log("이치문후.."+data1.title);
 														
-														var title = data[i].title.replace(/<b>|<\/b>/g,'');
-														var link = data[i].link
-														var img = data[i].image;
-														var director = data[i].director.replace('|','');
-														var actor = data[i].actor.replace(/\|/g,' | ');
-														var rate = data[i].userRating;
+														var title = data1.title.replace(/<b>|<\/b>/g,'');
+														var link = data1.link
+														var img = data1.image;
+														var director = data1.director.replace('|','');
+														var actor = data1.actor.replace(/\|/g,' | ');
+														var rate = data1.userRating;
 														var row2 = $("<tr/>").append(
 																		//포스터이미지클릭시 링크이동
 																		$("<td> <a href='"+ link +"' target='_blank'> <img id=\"img_src\" src="+ img +"></a> </td>"),
@@ -90,7 +82,10 @@
 									table2.append(thead2);
 									table2.append(tbody2);
 									$(".wrap2").append(table2);
+									console.log("영화정보 나와야.."+query);
 								}
+							}else{
+								console.log("error");
 							}
 						},
 						error : function(jqXHR, textStatus, errorThrown) { //에러났을때
@@ -113,12 +108,14 @@
 								errorResponseCode += "-DONE";
 							}
 							alert(errorResponseCode);
+							alert($("#query").val());
 						},
 						complete : function(jqXHR, textStatus) {
 						}
 					});
 		}
-	}); //검색결과 출력하는 함수 끝
+	});
+
 </script>
 
 	<div id="movieChart">
@@ -127,7 +124,7 @@
 			<form name="serviceAPISearchForm" id="serviceAPISearchForm"	method="post" action="" onsubmit="return false;">
 				<div id="mo_inline">
 					<div id="MovieSearchInput" >		
-						<input class="form-control" type="text" id="query"  name="query"	placeholder="보고싶은 영화를 검색하세요" value="" />
+						<input class="form-control" type="text" id="query"  name="query" placeholder="보고싶은 영화를 검색하세요" value="" />
 					</div>
 				</div>
 				

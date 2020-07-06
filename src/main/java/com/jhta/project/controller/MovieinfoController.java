@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MovieinfoController {
 	@RequestMapping("/movieinfo/movieinfo.do")
-	public String qna() {
+	public String movieinfo() {
 		return ".movieinfo.movieinfo";
 	}
 	
