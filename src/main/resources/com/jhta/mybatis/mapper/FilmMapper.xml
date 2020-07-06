@@ -10,10 +10,11 @@
 		<id property="totalPeople" column="totalPeople"/>
 		<id property="totalPrice" column="totalPrice"/>
 		<id property="totalDate" column="totalDate"/>
+		<id property="filmPrice" column="filmPrice"/>
 	</resultMap>
 	
 	<select id="getChat" parameterType="string" resultMap="getResultMap">
-		select t.totalPeople,t.totalPrice,t.totalDate from total t,film f where f.filmName=#{filmName} 
+		select t.totalPeople,t.totalPrice,t.totalDate,f.filmPrice from total t,film f where f.filmName=#{filmName} 
 		and t.filmNum = f.filmNum
 	</select>
 	

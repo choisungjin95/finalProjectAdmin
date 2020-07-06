@@ -4,6 +4,6 @@
 영화 제목: <input id="movieIncome">
 </div>
 <div>
-	<div id="curve_chart1" style="width:900px; height:600px; float:left;"></div>
-	<div id="curve_chart2" style="width:900px; height:600px; float:left;"></div>
+	<div id="curve_chart1" style="width:700px;height:500px;float:left;"></div>
+	<div id="curve_chart2" style="width:900px;height:500px;float:left;"></div>
 </div>
