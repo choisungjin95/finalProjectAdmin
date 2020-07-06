@@ -18,6 +18,7 @@
 		
 	</select>
 
+
 	<select id="nextTitle" parameterType="int" resultType="proposal">
 		select * from
 		(
