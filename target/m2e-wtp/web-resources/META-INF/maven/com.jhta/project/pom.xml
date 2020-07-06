@@ -15,6 +15,7 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+<<<<<<< HEAD
 		<!-- Java Mail API -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -26,6 +27,8 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+=======
+>>>>>>> branch 'sung' of https://github.com/choisungjin95/finalProjectAdmin.git
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
