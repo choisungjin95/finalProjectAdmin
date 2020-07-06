@@ -33,6 +33,7 @@ public class QnaService {
 	public int delete(int qnaNum) {
 		return dao.delete(qnaNum);
 	}
+	
 	public int count() {
 		return dao.count();
 	}
