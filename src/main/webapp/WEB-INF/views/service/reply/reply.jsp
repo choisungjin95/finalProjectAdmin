@@ -28,8 +28,8 @@
 						<tr>
 							<td>${list.memId }</td>
 							<td>${list.qnaTitle }</td>
-							<fmt:formatDate value="${list.askRegdate }" pattern="yyyy-MM-dd" var="regdate"/>
-							<td>${regdate }</td>
+							<%-- <fmt:formatDate value="${list.askRegdate }" pattern="yyyy-MM-dd" var="regdate"/> --%>
+							<td>${list.askRegdate }</td>
 							<td>${list.response }</td>
 							<td><a href="${cp }/service/reply/getinfo.do?askNum=${list.askNum}">답변</a></td>
 						</tr>

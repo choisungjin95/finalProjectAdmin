@@ -1,5 +1,7 @@
 package com.jhta.project.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,13 +14,16 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.jhta.page.util.PageUtil;
-import com.jhta.project.service.AskServiceTr;
 import com.jhta.project.service.AskService;
-import com.jhta.project.service.AskServiceImpl;
-import com.jhta.project.service.QnaService;
+import com.jhta.project.service.AskServiceTr;
+import com.jhta.project.service.RestService;
 import com.jhta.project.vo.AskVo;
 import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.ReplyVo;
@@ -26,13 +31,16 @@ import com.jhta.project.vo.ReplyVo;
 @Controller
 public class ServiceController {
 	@Autowired
-	private QnaService qnaService;
-	@Autowired
-	private AskServiceTr askServiceTr;
-	@Autowired
-	private AskService askService;
+	private RestService service;
+	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private AskServiceTr askServiceTr;
+	
+	@Autowired
+	private AskService askService;
 
 	@RequestMapping("/service/service.do")
 	public String service() {
@@ -44,93 +52,126 @@ public class ServiceController {
 		return ".service.qna.insert";
 	}
 	
-	@RequestMapping("/service/qna/update.do")
-	public String qnaUpdate(Model model,int qnaNum) {
-		model.addAttribute("vo",qnaService.getinfo(qnaNum));
-		return ".service.qna.update";
-	}
-	
-	
-//	@RequestMapping("/service/qna/updateOk.do")
-//	public String qnaUpdateOk(QnaVo vo) {
-//		int n=qnaService.update(vo);
-//		if(n>0) {
-//			return "redirect:/service/qna/list.do";
-//		}else {
-//			return "error";
-//		}
-//	}
-	
-	@RequestMapping("/service/qna/delete.do")
-	public String qnaDelete(Model model,int qnaNum) {
-		int n=qnaService.delete(qnaNum);
-		if(n>0) {
+	@RequestMapping(value="/service/qna/insertOk.do",method=RequestMethod.POST)
+	public String qnaInsertOk(QnaVo vo) throws JsonProcessingException {
+		String url="http://192.168.0.12:9090/projectdb/service/qna/insertOk.do";
+		ObjectMapper mapper=new ObjectMapper();
+		String jsonString= mapper.writeValueAsString(vo);
+		String code=service.post(url,jsonString).trim();
+		if(code.equals("success")) {
 			return "redirect:/service/qna/list.do";
 		}else {
 			return "error";
 		}
 	}
 	
-	@RequestMapping("/service/qna/list.do")
-	public String qnaList(Model model,@RequestParam(value="pageNum",defaultValue = "1")int pageNum) {
-		int totalRowCount= qnaService.count();
+	@RequestMapping(value="/service/qna/update.do",method = RequestMethod.GET)
+	public String qnaUpdate(Model model,int qnaNum) {
+		String url = "http://192.168.0.12:9090/projectdb/service/qna/update.do?qnaNum="+qnaNum;
+		String code=service.get(url).trim();
+		Gson gson=new Gson();
+		QnaVo vo=gson.fromJson(code, QnaVo.class);
+		model.addAttribute("vo",vo);
+		return ".service.qna.update";
+	}
+	
+	@RequestMapping(value="/service/qna/updateOk.do",method=RequestMethod.POST)
+	public String qnaUpdateOk(QnaVo vo) throws JsonProcessingException {
+		String url="http://192.168.0.12:9090/projectdb/service/qna/updateOk.do";
+		ObjectMapper mapper=new ObjectMapper();
+		String jsonString= mapper.writeValueAsString(vo);
+		String code=service.post(url,jsonString).trim();
+		if(code.equals("success")) {
+			return "redirect:/service/qna/list.do";
+		}else {
+			return "error";
+		}
+	}
+	
+	@RequestMapping(value="/service/qna/delete.do",method = RequestMethod.GET)
+	public String qnaDelete(Model model,int qnaNum) {
+		String url = "http://192.168.0.12:9090/projectdb/service/qna/delete.do?qnaNum="+qnaNum;
+		String code=service.get(url).trim();
+		if(code.equals("success")) {
+			return "redirect:/service/qna/list.do";
+		}else {
+			return "error";
+		}
+	}
+	
+	@RequestMapping(value="/service/qna/list.do",method=RequestMethod.GET)
+	public String qnaList(Model model,@RequestParam(value="pageNum",defaultValue = "1")int pageNum) throws JsonProcessingException {
+		String urlCount="http://192.168.0.12:9090/projectdb/service/qna/count.do?pageNum="+pageNum;
+		String scount=service.get(urlCount).trim();
+		int totalRowCount=Integer.parseInt(scount);
 		PageUtil pu=new PageUtil(pageNum, totalRowCount, 5, 5);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		List<QnaVo> list=qnaService.list(map);
+		String url="http://192.168.0.12:9090/projectdb/service/qna/list.do";
+		ObjectMapper mapper=new ObjectMapper();
+		String jsonString= mapper.writeValueAsString(map);
+		String slist = service.post(url, jsonString).trim();
+		Gson gson=new Gson();
+		QnaVo[] array=gson.fromJson(slist, QnaVo[].class);
+		List<QnaVo> list=Arrays.asList(array);
 		model.addAttribute("list",list);
 		model.addAttribute("pu",pu);
 		return ".service.qna.list";
 	}
 	
-	@RequestMapping("/service/qna/insertOk.do")
-	public String qnaInsertOk(QnaVo vo) {
-		int n=qnaService.insert(vo);
-		if(n>0) {
-			return "redirect:/service/qna/list.do";
-		}else {
-			return "error";
-		}
-	}
+	
 	
 	//질문 목록(성진)
-	@RequestMapping("/service/reply/askList.do")
-	public String askList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,Model model) {
-		int totalRowCount= askService.count();
+	@RequestMapping(value="/service/reply/askList.do",method=RequestMethod.GET)
+	public String askList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,Model model) throws JsonProcessingException {
+		String urlCount="http://192.168.0.12:9090/projectdb/service/reply/count.do";
+		String scount=service.get(urlCount).trim();
+		int totalRowCount=Integer.parseInt(scount);
 		PageUtil pu=new PageUtil(pageNum, totalRowCount, 5, 5);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		List<AskVo> list=askService.list(map);
+		String url="http://192.168.0.12:9090/projectdb/service/reply/askList.do";
+		ObjectMapper mapper=new ObjectMapper();
+		String jsonString= mapper.writeValueAsString(map);
+		String slist = service.post(url, jsonString).trim();
+		Gson gson=new Gson();
+		AskVo[] array=gson.fromJson(slist, AskVo[].class);
+		List<AskVo> list=Arrays.asList(array);
+		System.out.println("List:"+list);
 		model.addAttribute("list",list);
 		model.addAttribute("pu",pu);
+		
 		return ".service.reply.reply";
 	}
+	
 	//질문 자세히 보기(성진)
-	@RequestMapping("/service/reply/getinfo.do")
+	@RequestMapping(value="/service/reply/getinfo.do",method=RequestMethod.GET)
 	public String getInfo(int askNum,Model model) {
-		AskVo vo=askService.askGetinfo(askNum);
-		ReplyVo vo1=askService.replyGetinfo(askNum);
+		String url = "http://192.168.0.12:9090/projectdb/service/reply/getinfo.do?askNum="+askNum;
+		String code=service.get(url).trim();
+		Gson gson=new Gson();
 		
-		System.out.println(vo+"vo");
-		System.out.println(vo1+"vo1");
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("vo1", vo1);
+		ArrayList<Object> list=gson.fromJson(code, ArrayList.class);
+		model.addAttribute("list", list);
 		return ".service.reply.getinfo";
 	}
+	
+	
 	//질문 답변하기(성진)
-	@RequestMapping("/service/reply/insert.do")
-	public String replyInsert(ReplyVo vo,HttpServletRequest request){
+	@RequestMapping(value="/service/reply/insert.do",method=RequestMethod.POST)
+	public String replyInsert(ReplyVo vo) throws JsonProcessingException{
+		System.out.println("vo@@@@@@@@@@@@@@@@@@@@@@@@@@"+vo);
+//		String url="http://192.168.0.12:9090/projectdb/service/reply/replyinsert.do";
+//		ObjectMapper mapper=new ObjectMapper();
+//		String jsonString= mapper.writeValueAsString(vo);
+//		String code=service.post(url,jsonString).trim();
+//		System.out.println("code--------"+code);
+//		AskVo vo1=askService.askGetinfo(vo.getAskNum());
 		
-		int n=askServiceTr.replyInsert(vo);
-		AskVo vo1=askService.askGetinfo(vo.getAskNum());
-		
-		System.out.println("질문한 사람 이메일"+vo1.getEmail());
-		
-	    String setfrom = "test@gmail.com"; //보내는 사람 이메일
-	    String tomail  = /*vo1.getEmail();*/"test@gmail.com"; //받는 사람 이메일
+	    String setfrom = "maple950205@gmail.com"; //보내는 사람 이메일
+	    String tomail  = "choisungjin95@gmail.com"; //받는 사람 이메일
 	    String title   = "메가c네마 : 문의하신 질문 답변완료"; //메일 제목
 	    String content = "제목["+vo.getQnaTitle()+"]\n내용:"+vo.getReplyContent(); //메일 내용
 	    
@@ -151,6 +192,8 @@ public class ServiceController {
 		
 		return "redirect:/service/reply/askList.do";
 	}
+	
+	/*
 	//답변수정하기(성진)
 	@RequestMapping("/service/reply/update.do")
 	public String replyUpdate(ReplyVo vo) {
@@ -160,7 +203,7 @@ public class ServiceController {
 		System.out.println("질문한 사람 이메일"+vo1.getEmail());
 		
 		String setfrom = "maple950205@gmail.com"; //보내는 사람 이메일
-	    String tomail  = /*vo1.getEmail();*/"choisungjin95@gmail.com"; //받는 사람 이메일
+	    String tomail  = "choisungjin95@gmail.com"; //받는 사람 이메일
 	    String title   = "메가c네마 : 문의하신 질문 답변이 수정됬습니다"; //메일 제목
 	    String content = "제목["+vo.getQnaTitle()+"]\n내용:"+vo.getReplyContent(); //메일 내용
 	    
@@ -181,5 +224,6 @@ public class ServiceController {
 		
 		return "redirect:/service/reply/askList.do";
 	}
+	*/
 }
 

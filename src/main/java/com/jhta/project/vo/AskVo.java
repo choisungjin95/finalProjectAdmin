@@ -1,20 +1,18 @@
 package com.jhta.project.vo;
 
-import java.util.Date;
-
 public class AskVo {
 	private int askNum;
 	private int memNum;
 	private String qnaTitle;
 	private String askContent;
-	private Date askRegdate;
+	private String askRegdate;
 	private String memId;
 	private String response;
 	private String email;
 	
 	public AskVo() {}
 
-	public AskVo(int askNum, int memNum, String qnaTitle, String askContent, Date askRegdate, String memId,
+	public AskVo(int askNum, int memNum, String qnaTitle, String askContent, String askRegdate, String memId,
 			String response, String email) {
 		super();
 		this.askNum = askNum;
@@ -59,11 +57,11 @@ public class AskVo {
 		this.askContent = askContent;
 	}
 
-	public Date getAskRegdate() {
+	public String getAskRegdate() {
 		return askRegdate;
 	}
 
-	public void setAskRegdate(Date askRegdate) {
+	public void setAskRegdate(String askRegdate) {
 		this.askRegdate = askRegdate;
 	}
 
@@ -90,5 +88,7 @@ public class AskVo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	
 	
 }
