@@ -47,11 +47,13 @@
 			select:function(event, ui) {
 	            $.getJSON('${cp}/admin/income/getChat',{filmName:ui.item.value},function(results){
 	            	google.charts.load('current', {'packages':['corechart']});
+	            	google.charts.load('current', {'packages':['table']});
 		            google.charts.setOnLoadCallback(drawChart);
-		            google.charts.setOnLoadCallback(drawAnthonyChart);
+		            
+		            movieTotalIncome = 0;
+		            movieTotalPeople = 0;
 
 		            function drawChart() {
-		            	
 		            	var array = new Array();
 		            	array[0] = ['date','income'];
 		            	$(results).each(function(i,mem){
@@ -59,9 +61,8 @@
 		            		movieTotalIncome += mem.totalPrice;
 		            		array[++i] = subArray;
 		            	});
-		            	
 		            	var data = google.visualization.arrayToDataTable(array);
-
+		            	
 		              var options = {
 		                title: '수익',
 		                curveType: 'function',
@@ -82,25 +83,19 @@
 		                      'fill': '#F4F4F4',
 		                      'opacity': 100
 		                  },
-		                  
 		              };
-
-		              var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
-		              chart.draw(data, options);
-		            }
-		            
-		            function drawAnthonyChart() {
-		            	var array = new Array();
-		            	array[0] = ['date','people'];
+		              
+		              var peopleArray = new Array();
+		                peopleArray[0] = ['date','people'];
 		            	$(results).each(function(i,mem){
-		            		var subArray = [mem.totalDate,mem.totalPeople];
+		            		var peopleSubArray = [mem.totalDate,mem.totalPeople];
 		            		movieTotalPeople += mem.totalPeople;
-		            		array[++i] = subArray;
+		            		peopleArray[++i] = peopleSubArray;
 		            	});
-		            	var data = google.visualization.arrayToDataTable(array);
+		            	var peopleData= google.visualization.arrayToDataTable(peopleArray);
 
 		              
-		              var options = {
+		              var peopleOptions = {
 		                title: '관객수',
 		                curveType: 'function',
 		                legend: { position: 'bottom' },
@@ -116,8 +111,51 @@
 		                 }
 		              };
 		              
-		              var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+		              var Tabledata = new google.visualization.DataTable();
+			             Tabledata.addColumn('string', '영업기간');
+			             Tabledata.addColumn('number', '영화 수익');
+			             Tabledata.addColumn('number', '누적 관객수');
+			             Tabledata.addRows([
+			                ['영업기간',{v: movieTotalIncome, f: '$'+movieTotalIncome},
+			                	{v: movieTotalPeople, f:movieTotalPeople+'명'}]
+			             ]);
+
+		              var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
 		              chart.draw(data, options);
+		              var peopleChart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+		              peopleChart.draw(peopleData, peopleOptions);
+		              var table = new google.visualization.Table(document.getElementById('movieTable_div'));
+		              table.draw(Tabledata, {showRowNumber: true, width: '100%', height: '100%'});
+		              
+		             google.visualization.events.addListener(chart,'onmouseover',function(e){
+		            	  var Tabledata2 = new google.visualization.DataTable();
+				             Tabledata2.addColumn('string', '영업날짜');
+				             Tabledata2.addColumn('number', '수익');
+				             Tabledata2.addRows([
+				                [data.getValue(e.row,0),
+				                	{v: data.getValue(e.row,1), f: '$'+data.getValue(e.row,1)},]
+				             ]);
+				             var table2 = new google.visualization.Table(document.getElementById('movieInfoTable_div'));
+				             table2.draw(Tabledata2, {showRowNumber: true, width: '100%', height: '100%'});
+		              });
+		              google.visualization.events.addListener(chart,'onmouseout',function(e){
+		            	  $("#movieInfoTable_div").empty();
+		              });
+		              
+		              google.visualization.events.addListener(peopleChart,'onmouseover',function(e){
+		            	  var Tabledata2 = new google.visualization.DataTable();
+				             Tabledata2.addColumn('string', '영업날짜');
+				             Tabledata2.addColumn('number', '관객');
+				             Tabledata2.addRows([
+				                [data.getValue(e.row,0),
+				                	{v: data.getValue(e.row,1), f: '$'+data.getValue(e.row,1)},]
+				             ]);
+				          var table2 = new google.visualization.Table(document.getElementById('movieInfoTable_div'));
+				          table2.draw(Tabledata2, {showRowNumber: true, width: '100%', height: '100%'});
+		              });
+		              google.visualization.events.addListener(peopleChart,'onmouseout',function(e){
+		            	  $("#movieInfoTable_div").empty();
+		              });
 		            }
 	            });
 	        }
@@ -138,12 +176,14 @@
 			source:branch,
 			select:function(event, ui) {
 				$.getJSON('${cp}/admin/income/getBranchChat',{brName:ui.item.value},function(results){
-					console.log(results);
 	            	google.charts.load('current', {'packages':['corechart']});
 	            	google.charts.load('current', {'packages':['table']});
 		            google.charts.setOnLoadCallback(drawBranchChart);
+		            branchTicketIncome = 0;
+            		branchStoreIncome = 0;
+            		branchOutCome = 0;
+            		branchTotalIncome = 0;
 		            function drawBranchChart() {
-		            	
 		            	var array = new Array();
 		            	array[0] = ['date','income','outcome'];
 		            	$(results).each(function(i,mem){
@@ -172,21 +212,10 @@
 			             Tabledata.addColumn('number', '지출');
 			             Tabledata.addColumn('number', '총 이윤');
 			             Tabledata.addRows([
-			                ['영업기간',{v: branchTicketIncome, f:'$'+branchTicketIncome},
-			                	{v: branchStoreIncome, f:'$'+branchStoreIncome},
-			                	{v: branchOutCome, f:'$'+branchOutCome},
-			                	{v: branchTotalIncome, f:'$'+branchTotalIncome}]
-			             ]);
-			             
-			             var Tabledata2 = new google.visualization.DataTable();
-			             Tabledata2.addColumn('string', 'Name');
-			             Tabledata2.addColumn('number', 'Salary');
-			             Tabledata2.addColumn('boolean', 'Full Time Employee');
-			             Tabledata2.addRows([
-			                ['Mike',  {v: 10000, f: '$10,000'}, true],
-			                ['Jim',   {v: 8000,   f: '$8,000'},  false],
-			                ['Alice', {v: 12500, f: '$12,500'}, true],
-			                ['Bob',   {v: 7000,  f: '$7,000'},  true]
+			                ['영업기간',{v: branchTicketIncome, f:branchTicketIncome+'원'},
+			                	{v: branchStoreIncome, f:branchStoreIncome+'원'},
+			                	{v: branchOutCome, f:branchOutCome+'원'},
+			                	{v: branchTotalIncome, f:branchTotalIncome+'원'}]
 			             ]);
 			             
 			              var chart = new google.visualization.AreaChart(document.getElementById('curve_chart3'));
@@ -195,15 +224,15 @@
 			              table.draw(Tabledata, {showRowNumber: true, width: '100%', height: '100%'});
 			              
 			              google.visualization.events.addListener(chart,'onmouseover',function(e){
-			            	  
+			            	  console.log(data.getValue(e.row,0));
 			            	  var Tabledata2 = new google.visualization.DataTable();
 					             Tabledata2.addColumn('string', '영업기간');
 					             Tabledata2.addColumn('number', '수익');
 					             Tabledata2.addColumn('number', '지출');
 					             Tabledata2.addRows([
 					                [data.getValue(e.row,0),
-					                	{v: data.getValue(e.row,1), f: '$'+data.getValue(e.row,1)},
-					                	{v: data.getValue(e.row,2), f: '$'+data.getValue(e.row,2)} ]
+					                	{v: data.getValue(e.row,1), f: data.getValue(e.row,1)+'원'},
+					                	{v: data.getValue(e.row,2), f: data.getValue(e.row,2)+'원'} ]
 					             ]);
 					             var table2 = new google.visualization.Table(document.getElementById('table_div2'));
 					             table2.draw(Tabledata2, {showRowNumber: true, width: '100%', height: '100%'});
@@ -212,15 +241,11 @@
 			            	  $("#table_div2").empty();
 			              });
 
-			       }
+			       		}
 
 		            });//$getjson
-		     
-		        
 				}
 		});
-		
-		
 	});
 </script>
 </html>
