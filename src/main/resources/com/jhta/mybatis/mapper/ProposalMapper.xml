@@ -15,9 +15,8 @@
 	<select id="count" resultType="int">
 		select nvl(count(*),0) from
 		proposal
-		
+		order by proNum desc
 	</select>
-
 
 	<select id="nextTitle" parameterType="int" resultType="proposal">
 		select * from
@@ -47,9 +46,18 @@
 		FROM (
 		SELECT *
 		FROM proposal
-		ORDER BY proNum
+		ORDER BY proNum desc
 		) A
 		)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
+	<update id="rejectProposal" parameterType="int">
+		update proposal set proStatus='반려' where proNum=#{proNum}
+	</update>
+	
+	<update id="approveProposal" parameterType="int">
+		update proposal set proStatus='승인' where proNum=#{proNum}
+	</update>
+	
 </mapper>

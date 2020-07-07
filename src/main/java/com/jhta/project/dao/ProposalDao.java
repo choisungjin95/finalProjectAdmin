@@ -39,8 +39,16 @@ public class ProposalDao {
 	}
 	//게시판 상세에서 이전글 불러오는 함수
 	public ProposalVo getPreTitle(int proNum) {
-		System.out.println(proNum);
 		return session.selectOne(NAMESPACE+".preTitle",proNum);
+	}
+	//게시판 상세에서 반려버튼 누르면 실행되는 함수
+	public ProposalVo rejectProposal(int proNum) {
+		return session.selectOne(NAMESPACE+".rejectProposal",proNum);
+	}
+	//게시판 상세에서 승인버튼 누르면 실행되는 함수
+	public ProposalVo approveProposal(int proNum) {
+		System.out.println("dao타기");
+		return session.selectOne(NAMESPACE+".approveProposal",proNum);
 	}
 	
 }
