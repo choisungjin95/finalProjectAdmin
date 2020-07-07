@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/moviebox.css">
 <script>
@@ -57,7 +57,6 @@
 							+ result + "&itemPerPage=10",
 					dataType : "xml",
 					success : function(data) {
-						alert(data);
 						var $data = $(data).find("boxOfficeResult>dailyBoxOfficeList>dailyBoxOffice");
 						//데이터를 테이블 구조에 저장.
 						if ($data.length > 0) {
@@ -71,24 +70,26 @@
 											$("<th width='200px' style='background-color:#f0f0f0'/>").html("영화 개봉일"),
 											$("<th width='200px' style='background-color:#f0f0f0'/>").html("오늘 관객수"),
 											$("<th width='200px' style='background-color:#f0f0f0'/>").html("누적 관객수"),
-											$("<th width='200px' style='background-color:#f0f0f0'/>").text("구매"));
+											$("<th width='200px' style='background-color:#f0f0f0'/>").text("상세보기"));
 							var tbody = $("<tbody/>");
 							
 							$.each($data, function(i, o) {
 								//오픈 API에 정의된 변수와 내가 정의한 변수 데이터 파싱
-								var $rank = $(o).find("rank").text(); // 순위
-								var $movieNm = $(o).find("movieNm").text(); //영화명
-								var $openDt = $(o).find("openDt").text();// 영화 개봉일
-								var $audiCnt = $(o).find("audiCnt").text(); //해당일의 관객수
-								var $audiAcc = $(o).find("audiAcc").text(); //누적 관객수
+								var rank = $(o).find("rank").text(); // 순위
+								var movieNm = $(o).find("movieNm").text(); //영화명
+								var openDt = $(o).find("openDt").text();// 영화 개봉일
+								var audiCnt = $(o).find("audiCnt").text(); //해당일의 관객수
+								var audiAcc = $(o).find("audiAcc").text(); //누적 관객수
 								//<tbody><tr><td>태그안에 파싱하여 추출된 데이터 넣기
 								var row = $("<tr style='background-color:#f0f0f0'/>").append(
-										$("<td style='background-color:#f0f0f0'/>").text($rank),
-										$("<td style='background-color:#f0f0f0'/>").text($movieNm),
-										$("<td style='background-color:#f0f0f0'/>").text($openDt),
-										$("<td style='background-color:#f0f0f0'/>").text(addComma($audiCnt)),
-										$("<td style='background-color:#f0f0f0'/>").text(addComma($audiAcc)),
-										$("<td style='background-color:#f0f0f0'/>").text("구매"));
+										$("<td style='background-color:#f0f0f0'/>").text(rank),
+										$("<td style='background-color:#f0f0f0'/>").text(movieNm),
+										$("<td style='background-color:#f0f0f0'/>").text(openDt),
+										$("<td style='background-color:#f0f0f0'/>").text(addComma(audiCnt)),
+										$("<td style='background-color:#f0f0f0'/>").text(addComma(audiAcc)),
+										$("<td style='background-color:#f0f0f0'/>").html("<input type='button' id='id_check' class='btn btn-outline-primary' value='상세보기' onclick='goSearch(\""+ movieNm +"\")'>")				
+										);
+
 								tbody.append(row);
 							});// end of each 
 							table.append(thead);
@@ -101,7 +102,21 @@
 						alert("실시간 박스오피스 로딩중...");
 					}
 				});
+		
 	}); //박스오피스 로딩하는 함수끝
+	
+	function goSearch(movieNm) {
+		console.log(movieNm);
+	    var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+	    var t
+	    if(regExp.test(movieNm)){
+	        t = movieNm.replace(regExp, "");
+	    }else{
+	    	t = movieNm;
+	    }
+		location.href="${cp}/movieinfo/moviesearch.do?query="+t;
+		
+	}
 </script>
 
 	<div id="movieChart">

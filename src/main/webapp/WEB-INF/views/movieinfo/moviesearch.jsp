@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/moviesearch.css">
@@ -29,6 +30,7 @@
 		}
 		// form에서 값 받아오기
 		$.serviceAPISearchBlog = function() {
+			
 			if ("" == $.trim($("#query").val())) {
 				$("#query").val("검색어");
 			}
@@ -58,17 +60,19 @@
 											$("<th width='200px;'/>").html("영화제목"),
 											$("<th width='300px;'/>").html("감독"),
 											$("<th width='500px;'/>").html("주연배우"),
-											$("<th width='100px;'/>").html("평점"));
+											$("<th width='100px;'/>").html("제작년도"),
+											$("<th width='100px;'/>").html("평점"),
+											$("<th width='100px;'/>").text("구매"));
 									var tbody2 = $("<tbody/>");
 									var item = JSON.parse(json);
 									$(item.items).each(function(i,data1) {
-											console.log("이치문후.."+data1.title);
-														
+											console.log("이치문후.."+data1.title);		
 														var title = data1.title.replace(/<b>|<\/b>/g,'');
-														var link = data1.link
+														var link = data1.link;
 														var img = data1.image;
-														var director = data1.director.replace('|','');
+														var director = data1.director.replace(/\|/g,' | ');
 														var actor = data1.actor.replace(/\|/g,' | ');
+														var pubDate = data1.pubDate;
 														var rate = data1.userRating;
 														var row2 = $("<tr/>").append(
 																		//포스터이미지클릭시 링크이동
@@ -76,7 +80,10 @@
 																		$("<td/>").text(title),
 																		$("<td/>").text(director),
 																		$("<td/>").text(actor),
-																		$("<td/>").text(rate));
+																		$("<td/>").text(pubDate),
+																		$("<td/>").text(rate),
+																		$("<td/>").html("<input type='button' id='id_check' class='btn btn-outline-primary' value='구매' onclick='goBuy(\""+ title +"\")'>")
+																		);
 														tbody2.append(row2);
 													});// end of each 
 									table2.append(thead2);
@@ -114,7 +121,16 @@
 						}
 					});
 		}
+		$("input").keydown(function (event) {
+	        if (event.which === 13) {    //enter
+	            console.log($(this).val());
+	            $('#submit').click();
+	            return false;
+	        }
+	    });
 	});
+
+
 
 </script>
 
@@ -124,11 +140,11 @@
 			<form name="serviceAPISearchForm" id="serviceAPISearchForm"	method="post" action="" onsubmit="return false;">
 				<div id="mo_inline">
 					<div id="MovieSearchInput" >		
-						<input class="form-control" type="text" id="query"  name="query" placeholder="보고싶은 영화를 검색하세요" value="" />
+						<input class="form-control" type="text" id="query"  name="query" placeholder="영화 검색" value="${query}" />
 					</div>
 				</div>
 				
-				<button class="btn btn-primary"  type="button" onclick="$.serviceAPISearchBlog(); $.popup();">검색</button>
+				<button class="btn btn-primary"  type="button" id="submit" onclick="$.serviceAPISearchBlog(); $.popup();">검색</button>
 			</form>
 		</div>
 		
@@ -136,7 +152,7 @@
 		
 	</div>
 	<div class="wrap3">
-		<h5 style="display:inline-block;">포스터를 클릭하면 네이버 영화정보로 넘어갑니다.</h5>
+		<h5 style="display:inline-block; font-weight: bold;">포스터를 클릭하면 네이버 영화정보로 넘어갑니다.</h5>
 		<div id="close" onclick="$.close();" style="float:right;">X</div>
 		<div class="wrap2" id="popup"></div>
 	</div>
