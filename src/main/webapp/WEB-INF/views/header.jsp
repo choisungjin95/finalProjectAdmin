@@ -12,7 +12,10 @@
           <a class="nav-link" href="#">영화 구매/판매</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">통계</a>
+          <a class="nav-link" href="${cp}/admin/income/moive.do">영화별 수익 및 누적관람객</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${cp}/admin/income/branch.do">지점별 수익 및 누적관람객</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${cp }/proposal/brManagement">지점관리</a>

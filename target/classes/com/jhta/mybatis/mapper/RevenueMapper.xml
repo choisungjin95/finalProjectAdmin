@@ -6,4 +6,17 @@
 	<select id="getinfo" parameterType="int" resultType="revenue">
 		select * from revenue where revenueNum=#{revenueNum}
 	</select>
+	
+	<resultMap type="hashMap" id="getResultMap">
+		<id column="b.brName" property="brName"/>
+		<id column="r.outcome" property="outcome"/>
+		<id column="r.ticketIncome" property="ticketIncome"/>
+		<id column="r.storeIncome" property="storeIncome"/>
+		<id column="r.revenueDate" property="revenueDate"/>
+	</resultMap>
+	
+	<select id="getIncome" parameterType="string" resultMap="getResultMap">
+		select b.brName,r.outcome,r.ticketIncome,r.storeIncome,r.revenueDate 
+		from branch b,revenue r where b.branchNum=r.branchNum and b.brName=${brName}
+	</select>
 </mapper>
