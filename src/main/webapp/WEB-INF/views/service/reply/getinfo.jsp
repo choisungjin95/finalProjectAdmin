@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="${list.get(0) }" value="vo"/>
-<c:set var="${list.get(1) }" value="vo1"/>
 
 <div class="container">
 	<div class="bg-contact2">
@@ -33,9 +31,9 @@
 		<c:choose>
 			<c:when test="${vo1.replyNum > 0 }">
 				<form method="post" action="${cp }/service/reply/update.do">
-					<input type="hidden" name="askNum" value="${vo.askNum }">
-					<input type="hidden" name="staffId" value="${vo.memId }">
-					<input type="hidden" name="replyNum" value="${vo1.replyNum }">
+					<input type="text" name="askNum" value="${vo.askNum }">
+					<input type="text" name="staffId" value="${vo.memId }">
+					<input type="text" name="replyNum" value="${vo1.replyNum }">
 					<label for="qnaTitle">제목</label>
 					<input type="text" name="qnaTitle" value="${vo1.qnaTitle }" class="form-control" id="qnaTitle"><br> <!-- 답변 제목 -->
 					<label for="replyContent">내용</label>
@@ -47,8 +45,8 @@
 			<c:otherwise>
 				<form method="post" action="${cp }/service/reply/insert.do">
 					<div class="form-group">
-						<input type="text" name="askNum" value="${vo.askNum }">
-						<input type="text" name="staffId" value="${vo.memId }">
+						<input type="hidden" name="askNum" value="${vo.askNum }">
+						<input type="hidden" name="staffId" value="${vo.memId }">
 						<label for="qnaTitle">제목</label>
 						<input type="text" name="qnaTitle" class="form-control" id="qnaTitle"><br> <!-- 답변 제목 -->
 						<label for="replyContent">내용</label>
