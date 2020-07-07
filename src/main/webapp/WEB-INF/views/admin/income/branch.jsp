@@ -5,6 +5,6 @@
 지점명 : <input id="branchIncome">
 </div>
 <div id="curve_chart3" style="width:800px;height:600px;float:left;"></div>
-<table id="branchIncomeInfo" border="1" style="opacity:0;float:left;width:300px;height:300px;">
-
-</table>
+<div id="table_div" style="float:left;"></div><br><br><br><br>
+<div id="table_div2" style="float:left;"></div>
+<div><table id="branchIncomeInfo" border="1" style="width:300px;height:100px;"></table></div>

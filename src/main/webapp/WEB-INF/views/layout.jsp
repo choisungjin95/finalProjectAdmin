@@ -136,12 +136,12 @@
 		$("#branchIncome").autocomplete({
 			source:branch,
 			select:function(event, ui) {
-				$(".incomeTable").css("opacity",1);
 				$.getJSON('${cp}/admin/income/getBranchChat',{filmName:ui.item.value},function(results){
 	            	google.charts.load('current', {'packages':['corechart']});
+	            	google.charts.load('current', {'packages':['table']});
 		            google.charts.setOnLoadCallback(drawBranchChart);
-
 		            function drawBranchChart() {
+		            	
 		            	var array = new Array();
 		            	array[0] = ['date','income','outcome'];
 		            	$(results).each(function(i,mem){
@@ -153,8 +153,6 @@
 		            		array[++i] = subArray;
 		            	});
 		            	var data = google.visualization.arrayToDataTable(array);
-
-		              
 		              var options = {
 		            		  title: 'Company Performance',
 		                      hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
@@ -165,40 +163,63 @@
 		 		                 easing: 'in'
 		 		              },
 		              };
-		              
-						
-		              var chart = new google.visualization.AreaChart(document.getElementById('curve_chart3'));
-		              chart.draw(data, options);
-		              
-		              google.visualization.events.addListener(chart,'onmouseover',function(e){
-		            	  var branchTable = '';
-		            	  branchTable += '<tr>';
-		            	  branchTable += '<th>ㅇ</th>';
-		            	  branchTable += '<th>ㅇ</th>';
-		            	  branchTable += '<th>ㅇ</th>';
-		            	  branchTable += '<th>ㅇ</th>';
-		            	  branchTable += '</tr>';
-		            	  branchTable += '<tr>';
-		            	  branchTable += '<td>'+branchTicketIncome+'</td>';
-		            	  branchTable += '<td>'+branchStoreIncome+'</td>';
-		            	  branchTable += '<td>'+branchOutCome+'</td>';
-		            	  branchTable += '<td>'+branchTotalIncome+'</td>';
-		            	  branchTable += '</tr>';
-		            	  branchTable += '<tr>';
-		            	  branchTable += '<td>'+data.getValue(e.row,0)+'</td>';
-		            	  branchTable += '<td>'+data.getValue(e.row,1)+'</td>';
-		            	  branchTable += '<td>'+data.getValue(e.row,2)+'</td>';
-		            	  branchTable += '<td>'+branchTotalIncome+'</td>';
-		            	  branchTable += '</tr>';
-		            	  $("#branchIncomeInfo").html(branchTable);
-		            	  $("#branchIncomeInfo").css('opacity',1);
-		              });
-		              google.visualization.events.addListener(chart,'onmouseout',function(e){
-		            	  $("#branchIncomeInfo").css('opacity',0);
-		              });
-		            }
-				});
-			}
+			             var Tabledata = new google.visualization.DataTable();
+			             Tabledata.addColumn('string', '영업기간');
+			             Tabledata.addColumn('number', '티켓수익');
+			             Tabledata.addColumn('number', '매점수익');
+			             Tabledata.addColumn('number', '지출');
+			             Tabledata.addColumn('number', '총 이윤');
+			             Tabledata.addRows([
+			                ['영업기간',{v: branchTicketIncome, f:'$'+branchTicketIncome},
+			                	{v: branchStoreIncome, f:'$'+branchStoreIncome},
+			                	{v: branchOutCome, f:'$'+branchOutCome},
+			                	{v: branchTotalIncome, f:'$'+branchTotalIncome}]
+			             ]);
+			             
+			             var Tabledata2 = new google.visualization.DataTable();
+			             Tabledata2.addColumn('string', 'Name');
+			             Tabledata2.addColumn('number', 'Salary');
+			             Tabledata2.addColumn('boolean', 'Full Time Employee');
+			             Tabledata2.addRows([
+			                ['Mike',  {v: 10000, f: '$10,000'}, true],
+			                ['Jim',   {v: 8000,   f: '$8,000'},  false],
+			                ['Alice', {v: 12500, f: '$12,500'}, true],
+			                ['Bob',   {v: 7000,  f: '$7,000'},  true]
+			             ]);
+			             
+			              var chart = new google.visualization.AreaChart(document.getElementById('curve_chart3'));
+			              chart.draw(data, options);
+			              var table = new google.visualization.Table(document.getElementById('table_div'));
+			              table.draw(Tabledata, {showRowNumber: true, width: '100%', height: '100%'});
+			              
+			              google.visualization.events.addListener(chart,'onmouseover',function(e){
+			            	  /*var branchTable = '';
+			            	  branchTable += '<tr><th>날짜</th><th>수입</th><th>지출</th></tr>';
+			            	  branchTable += '<tr><td>'+data.getValue(e.row,0)+'</td><td>'+data.getValue(e.row,1)+'</td><td>'+data.getValue(e.row,2)+'</td></tr>';
+			            	  $("#branchIncomeInfo").html(branchTable);*/
+			            	  var Tabledata2 = new google.visualization.DataTable();
+					             Tabledata2.addColumn('string', '영업기간');
+					             Tabledata2.addColumn('number', '수익');
+					             Tabledata2.addColumn('number', '지출');
+					             Tabledata2.addRows([
+					                [data.getValue(e.row,0),
+					                	{v: data.getValue(e.row,1), f: '$'+data.getValue(e.row,1)},
+					                	{v: data.getValue(e.row,2), f: '$'+data.getValue(e.row,2)} ]
+					             ]);
+					             var table2 = new google.visualization.Table(document.getElementById('table_div2'));
+					             table2.draw(Tabledata2, {showRowNumber: true, width: '100%', height: '100%'});
+			              });
+			              google.visualization.events.addListener(chart,'onmouseout',function(e){
+			            	  //$("#branchIncomeInfo").empty();
+			            	  $("#table_div2").empty();
+			              });
+
+			       }
+
+		            });//$getjson
+		     
+		        
+				}
 		});
 		
 		

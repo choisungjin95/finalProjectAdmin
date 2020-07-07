@@ -15,7 +15,7 @@
 	
 	<select id="getChat" parameterType="string" resultMap="getResultMap">
 		select t.totalPeople,t.totalPrice,t.totalDate,f.filmPrice from total t,film f where f.filmName=#{filmName} 
-		and t.filmNum = f.filmNum
+		and t.filmNum = f.filmNum order by t.totalDate
 	</select>
 	
 	<select id="getName" resultType="string" parameterType="string">
