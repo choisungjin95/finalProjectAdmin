@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RestService {
-	
 	public String post(String strUrl,String jsonString) {
 		try {
 			System.out.println(strUrl);
