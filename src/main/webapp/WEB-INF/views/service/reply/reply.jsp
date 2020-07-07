@@ -28,7 +28,6 @@
 						<tr>
 							<td>${list.memId }</td>
 							<td>${list.qnaTitle }</td>
-							<%-- <fmt:formatDate value="${list.askRegdate }" pattern="yyyy-MM-dd" var="regdate"/> --%>
 							<td>${list.askRegdate }</td>
 							<td>${list.response }</td>
 							<td><a href="${cp }/service/reply/getinfo.do?askNum=${list.askNum}">답변</a></td>
@@ -43,7 +42,7 @@
         <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
         <ul class="pagination">
 	        <c:choose>
-				<c:when test="${pu.startPageNum>4}">
+				<c:when test="${pu.startPageNum>5}">
 		        	<li class="paginate_button page-item previous disabled" id="zero_config_previous">
 			      	  <a href="${cp }/service/reply/askList.do?pageNum=${pu.startPageNum-1 }" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
 			      	</li>

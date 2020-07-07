@@ -31,9 +31,9 @@
 		<c:choose>
 			<c:when test="${vo1.replyNum > 0 }">
 				<form method="post" action="${cp }/service/reply/update.do">
-					<input type="text" name="askNum" value="${vo.askNum }">
-					<input type="text" name="staffId" value="${vo.memId }">
-					<input type="text" name="replyNum" value="${vo1.replyNum }">
+					<input type="hidden" name="askNum" value="${vo.askNum }">
+					<input type="hidden" name="staffId" value="${vo.memId }">
+					<input type="hidden" name="replyNum" value="${vo1.replyNum }">
 					<label for="qnaTitle">제목</label>
 					<input type="text" name="qnaTitle" value="${vo1.qnaTitle }" class="form-control" id="qnaTitle"><br> <!-- 답변 제목 -->
 					<label for="replyContent">내용</label>
