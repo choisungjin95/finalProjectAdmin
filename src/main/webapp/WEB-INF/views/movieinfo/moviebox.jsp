@@ -87,8 +87,9 @@
 										$("<td style='background-color:#f0f0f0'/>").text(openDt),
 										$("<td style='background-color:#f0f0f0'/>").text(addComma(audiCnt)),
 										$("<td style='background-color:#f0f0f0'/>").text(addComma(audiAcc)),
-										$("<td style='background-color:#f0f0f0'/>").html("<input type='button' id='id_check' class='btn btn-outline-primary' value='상세보기' onclick='goSearch(\""+ movieNm +"\")'>")				
-										);
+										$("<td style='background-color:#f0f0f0'/>").html("<input type='button' id='id_check' class='btn btn-outline-primary' value='상세보기' onclick='goSearch(\""+ movieNm +"\")'>")
+										
+								);
 
 								tbody.append(row);
 							});// end of each 

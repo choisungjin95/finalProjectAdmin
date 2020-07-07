@@ -129,6 +129,11 @@
 	        }
 	    });
 	});
+	
+	function goBuy(title) {
+		//alert(title);
+		location.href="${cp}/movieinfo/moviebuy.do?title="+title;
+	}
 
 
 

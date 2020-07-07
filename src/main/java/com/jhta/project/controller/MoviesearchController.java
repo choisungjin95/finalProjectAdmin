@@ -30,7 +30,7 @@ public class MoviesearchController {
 		System.out.println(query);
 		StringBuffer sb=new StringBuffer();
 		query=URLEncoder.encode(query,"UTF-8");
-		String surl="https://openapi.naver.com/v1/search/movie.json?query="+query+"&display=5";	
+		String surl="https://openapi.naver.com/v1/search/movie.json?query="+query+"&display=10";	
 		URL url=new URL(surl);
 		System.out.println("url:"+url);
 		HttpURLConnection conn=(HttpURLConnection)url.openConnection(); //java url 연결을 위함

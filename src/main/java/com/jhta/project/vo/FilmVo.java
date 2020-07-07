@@ -9,11 +9,11 @@ public class FilmVo {
 	private Date filmStart;
 	private Date filmEnd;
 	private int filmPrice;
-	private String runnigTime;
+	private String filmHead;
 	private String filmStatus;
 	private int genreNum;
 	public FilmVo(int filmNum, String filmName, String filmStory, Date filmStart, Date filmEnd, int filmPrice,
-			String runnigTime, String filmStatus, int genreNum) {
+			String filmHead, String filmStatus, int genreNum) {
 		super();
 		this.filmNum = filmNum;
 		this.filmName = filmName;
@@ -21,7 +21,7 @@ public class FilmVo {
 		this.filmStart = filmStart;
 		this.filmEnd = filmEnd;
 		this.filmPrice = filmPrice;
-		this.runnigTime = runnigTime;
+		this.filmHead = filmHead;
 		this.filmStatus = filmStatus;
 		this.genreNum = genreNum;
 	}
@@ -65,10 +65,10 @@ public class FilmVo {
 		this.filmPrice = filmPrice;
 	}
 	public String getRunnigTime() {
-		return runnigTime;
+		return filmHead;
 	}
-	public void setRunnigTime(String runnigTime) {
-		this.runnigTime = runnigTime;
+	public void setRunnigTime(String filmHead) {
+		this.filmHead = filmHead;
 	}
 	public String getFilmStatus() {
 		return filmStatus;
