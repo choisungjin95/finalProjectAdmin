@@ -149,7 +149,6 @@ public class ServiceController {
 		String url = "http://192.168.0.12:9090/projectdb/service/reply/getinfo.do?askNum="+askNum;
 		String code=service.get(url).trim();
 		Gson gson=new Gson();
-		System.out.println(code);
 		HashMap<String,Object> map=gson.fromJson(code, HashMap.class);
 		AskVo vo= gson.fromJson(map.get("vo").toString(), AskVo.class);
 		if(map.get("vo1")!=null) {
