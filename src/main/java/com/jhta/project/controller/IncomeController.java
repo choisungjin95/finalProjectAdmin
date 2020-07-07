@@ -1,37 +1,38 @@
 package com.jhta.project.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jhta.project.service.BranchService;
-import com.jhta.project.service.FilmService;
-import com.jhta.project.vo.FilmVo;
+import com.google.gson.Gson;
+import com.jhta.project.service.RestService;
 
 @Controller
 public class IncomeController {
 	@Autowired
-	private FilmService filmService;
-	@Autowired
-	private BranchService branchService;
+	private RestService service;
 	
-	@RequestMapping("/admin/income/branch.do")
+	@RequestMapping(value="/admin/income/branch.do",method=RequestMethod.GET)
 	public String goIncomeBranch(Model model) {
-		List<String> branchList = branchService.getName();
-		List<String> filmList = filmService.getName();
+		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/branch.do";
+		String sbranch = service.get(branchUrl).trim();
+		String filmUrl = "http://192.168.0.12:9090/projectdb/admin/income/film.do";
+		String fbranch = service.get(filmUrl).trim();
+		Gson gson=new Gson();
+		String[] array=gson.fromJson(sbranch, String[].class);
+		List<String> branchList=Arrays.asList(array);
+		String[] array1=gson.fromJson(fbranch, String[].class);
+		List<String> filmList=Arrays.asList(array1);
 		JSONArray branchArray = new JSONArray();
 		JSONArray filmArray = new JSONArray();
 		for(String data : branchList) {
@@ -48,11 +49,18 @@ public class IncomeController {
 		model.addAttribute("filmArray",filmArray);
 		return ".admin.income.branch";
 	}
-	
+
 	@RequestMapping("/admin/income/moive.do")
 	public String goIncomeMoive(Model model) {
-		List<String> branchList = branchService.getName();
-		List<String> filmList = filmService.getName();
+		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/branch.do";
+		String sbranch = service.get(branchUrl).trim();
+		String filmUrl = "http://192.168.0.12:9090/projectdb/admin/income/film.do";
+		String fbranch = service.get(filmUrl).trim();
+		Gson gson=new Gson();
+		String[] array=gson.fromJson(sbranch, String[].class);
+		List<String> branchList=Arrays.asList(array);
+		String[] array1=gson.fromJson(fbranch, String[].class);
+		List<String> filmList=Arrays.asList(array1);
 		JSONArray branchArray = new JSONArray();
 		JSONArray filmArray = new JSONArray();
 		for(String data : branchList) {
@@ -73,32 +81,15 @@ public class IncomeController {
 	@RequestMapping("/admin/income/getChat")
 	@ResponseBody
 	public String getmovieChat(String filmName) {
-		List<HashMap<String,Object>> list = filmService.getChat(filmName);
-		JSONArray array = new JSONArray();
-		for(HashMap<String,Object> map : list) {
-			JSONObject object = new JSONObject();
-			object.put("totalDate", new SimpleDateFormat("yyyy-MM-dd").format(map.get("totalDate")));
-			object.put("totalPeople", map.get("totalPeople"));
-			object.put("totalPrice", map.get("totalPrice"));
-			object.put("filmPrice", map.get("filmPrice"));
-			array.put(object);
-		}
-		return array.toString();
+		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/getMovieChat.do?filmName="+filmName;
+		String sbranch = service.get(branchUrl).trim();
+		return sbranch;
 	}
-	
 	@RequestMapping("/admin/income/getBranchChat")
 	@ResponseBody
-	public String getBranchChat(String filmName) {
-		List<HashMap<String,Object>> list = branchService.getChat(filmName);
-		JSONArray array = new JSONArray();
-		for(HashMap<String,Object> map : list) {
-			JSONObject object = new JSONObject();
-			object.put("revenueDate", new SimpleDateFormat("yyyy-MM-dd").format(map.get("revenueDate")));
-			object.put("ticketIncome", map.get("ticketIncome"));
-			object.put("storeIncome", map.get("storeIncome"));
-			object.put("outcome", map.get("outcome"));
-			array.put(object);
-		}
-		return array.toString();
+	public String getBranchChat(String brName) {
+		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/getBranchChat.do?brName="+brName;
+		String sbranch = service.get(branchUrl).trim();
+		return sbranch;
 	}
 }

@@ -51,6 +51,7 @@
 		            google.charts.setOnLoadCallback(drawAnthonyChart);
 
 		            function drawChart() {
+		            	
 		            	var array = new Array();
 		            	array[0] = ['date','income'];
 		            	$(results).each(function(i,mem){
@@ -58,9 +59,9 @@
 		            		movieTotalIncome += mem.totalPrice;
 		            		array[++i] = subArray;
 		            	});
+		            	
 		            	var data = google.visualization.arrayToDataTable(array);
 
-		              
 		              var options = {
 		                title: '수익',
 		                curveType: 'function',
@@ -136,7 +137,8 @@
 		$("#branchIncome").autocomplete({
 			source:branch,
 			select:function(event, ui) {
-				$.getJSON('${cp}/admin/income/getBranchChat',{filmName:ui.item.value},function(results){
+				$.getJSON('${cp}/admin/income/getBranchChat',{brName:ui.item.value},function(results){
+					console.log(results);
 	            	google.charts.load('current', {'packages':['corechart']});
 	            	google.charts.load('current', {'packages':['table']});
 		            google.charts.setOnLoadCallback(drawBranchChart);
@@ -193,10 +195,7 @@
 			              table.draw(Tabledata, {showRowNumber: true, width: '100%', height: '100%'});
 			              
 			              google.visualization.events.addListener(chart,'onmouseover',function(e){
-			            	  /*var branchTable = '';
-			            	  branchTable += '<tr><th>날짜</th><th>수입</th><th>지출</th></tr>';
-			            	  branchTable += '<tr><td>'+data.getValue(e.row,0)+'</td><td>'+data.getValue(e.row,1)+'</td><td>'+data.getValue(e.row,2)+'</td></tr>';
-			            	  $("#branchIncomeInfo").html(branchTable);*/
+			            	  
 			            	  var Tabledata2 = new google.visualization.DataTable();
 					             Tabledata2.addColumn('string', '영업기간');
 					             Tabledata2.addColumn('number', '수익');
@@ -210,7 +209,6 @@
 					             table2.draw(Tabledata2, {showRowNumber: true, width: '100%', height: '100%'});
 			              });
 			              google.visualization.events.addListener(chart,'onmouseout',function(e){
-			            	  //$("#branchIncomeInfo").empty();
 			            	  $("#table_div2").empty();
 			              });
 
