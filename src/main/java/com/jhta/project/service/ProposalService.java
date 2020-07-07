@@ -46,12 +46,12 @@ public class ProposalService {
 	}
 
 	// 게시판 상세에서 반려버튼 누르면 실행되는 함수
-	public ProposalVo rejectProposal(int proNum) {
+	public int rejectProposal(int proNum) {
 		return proDao.rejectProposal(proNum);
 	}
 	
 	//게시판 상세에서 승인버튼 누르면 실행되는 함수
-	public ProposalVo approveProposal(int proNum) {
+	public int approveProposal(int proNum) {
 		System.out.println("service타기");
 		return proDao.approveProposal(proNum);
 	}

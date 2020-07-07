@@ -52,34 +52,39 @@ public class ProposalController {
 	// 게시판 상세에서 반려 클릭했을 때 실행되는 함수
 	@RequestMapping("/proposal/rejected")
 	public String rejectProposal(Model model, int proNum) {
-		ProposalVo proVo = proService.rejectProposal(proNum);
-		System.out.println(proVo);//null
-		model.addAttribute("proVo", proVo);
-		proBoardDetail(model, proNum);
-		// 게시판 상세에서 다음글 불러오기
-		ProposalVo nextVo = proService.getNextTitle(proNum);
-		model.addAttribute("nextVo", nextVo);
-		// 게시판 상세에서 이전글 불러오기
-		ProposalVo preVo = proService.getPreTitle(proNum);
-		model.addAttribute("preVo", preVo);
-		return ".proposal.proBoardDetail";
+		int updateNum = proService.rejectProposal(proNum);
+		if(updateNum<1) {
+			return "error";
+		}else {
+			ProposalVo proVo = proService.getinfo(proNum);
+			model.addAttribute("proVo", proVo);
+			// 게시판 상세에서 다음글 불러오기
+			ProposalVo nextVo = proService.getNextTitle(proNum);
+			model.addAttribute("nextVo", nextVo);
+			// 게시판 상세에서 이전글 불러오기
+			ProposalVo preVo = proService.getPreTitle(proNum);
+			model.addAttribute("preVo", preVo);
+			return ".proposal.proBoardDetail";
+		}
 	}
 	
 	//게시판 상세에서 승인 클릭했을 때 실행되는 함수
 	@RequestMapping("/proposal/approved")
 	public String approveProposal(Model model, int proNum) {
 		System.out.println("승인버튼 함수 타기");
-		ProposalVo proVo=proService.approveProposal(proNum);
-		System.out.println(proVo);
-		System.out.println("뭐가 담겼니?"+proVo.getProStatus());
-		model.addAttribute("proVo", proVo);
-		proBoardDetail(model, proNum);
-		// 게시판 상세에서 다음글 불러오기
-		ProposalVo nextVo = proService.getNextTitle(proNum);
-		model.addAttribute("nextVo", nextVo);
-		// 게시판 상세에서 이전글 불러오기
-		ProposalVo preVo = proService.getPreTitle(proNum);
-		model.addAttribute("preVo", preVo);
-		return ".proposal.proBoardDetail";
+		int updateNum=proService.approveProposal(proNum);
+		if(updateNum<1) {
+			return "error";
+		}else {
+			ProposalVo proVo = proService.getinfo(proNum);
+			model.addAttribute("proVo", proVo);
+			// 게시판 상세에서 다음글 불러오기
+			ProposalVo nextVo = proService.getNextTitle(proNum);
+			model.addAttribute("nextVo", nextVo);
+			// 게시판 상세에서 이전글 불러오기
+			ProposalVo preVo = proService.getPreTitle(proNum);
+			model.addAttribute("preVo", preVo);
+			return ".proposal.proBoardDetail";
+		}
 	}
 }
