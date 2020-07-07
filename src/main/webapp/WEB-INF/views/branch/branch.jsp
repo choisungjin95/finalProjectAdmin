@@ -2,17 +2,47 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#branch').DataTable({
+		  order: [[0, "desc"]], // asc 또는 desc
+		  lengthChange: false,
+		  ordering: true,
+		  info: false,
+		  paging: false,
+		  scrollX: true,
+		  scrollY: 550,
+		  columnDefs: [
+				// 2번째 항목 넓이를 100px로 설정
+				{ targets: 0, width: 150 },
+				{ targets: 1, width: 200 },
+				{ targets: 2, width: 240 },
+				{ targets: 3, width: 250 },
+				{ targets: 4, width: 250 }]
+		});
+	});
+</script>
+</head>
 <style>
-.container3{
-	position: relative;
-    left: 795px;
-    bottom: auto;
-    padding-top: 10px;
-}
+	.container3{
+		position: relative;
+	    left: 795px;
+	    bottom: 13px;
+	    padding-top: 0px;
+	}
 </style>
 <!-- 게시판 -->
+<body>
 <div class="container">
-	<table class="table table-striped">
+	<table id="branch" class="table table-striped" style="width:100%">
 		<thead>
 			<tr>
 				<td>No.</td>
@@ -50,17 +80,5 @@
 		</c:forEach>
 	</ul>	
 </div>
-<!-- 검색 -->
-<div class="container3">
-<form class="form-inline" method="post" action="/projectAdmin/branch.do">
-	<div class="input-group mb-3">
-		<div class="input-group-prepend">
-			<span class="input-group-text"><i class="fas fa-search"></i></span>
-		</div>
-		<input type="text" class="form-control" placeholder="검색어를 입력해주세요." name="keyword" value="${keyword }">
-			<div class="input-group-btn">
-				<button type="button" class="btn btn-secondary" type="submit">검색</button>
-			</div>
-	</div>
-</form>
-</div>
+</body>
+</html>

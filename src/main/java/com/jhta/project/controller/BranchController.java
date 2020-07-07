@@ -25,7 +25,7 @@ public class BranchController {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		int totalRowCount=service.count(map); //전체글갯수
-		PageUtil pu=new PageUtil(pageNum, totalRowCount,10,10);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount,50,10);
 		System.out.println(pageNum);
 		System.out.println(totalRowCount);
 		map.put("startRow", pu.getStartRow());
