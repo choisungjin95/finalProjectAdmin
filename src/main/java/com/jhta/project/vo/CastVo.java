@@ -2,13 +2,13 @@ package com.jhta.project.vo;
 
 public class CastVo {
 	private int castNum;
-	private int actorNum;
 	private int filmNum;
-	public CastVo(int castNum, int actorNum, int filmNum) {
+	private String name;
+	public CastVo(int castNum, String name, int filmNum) {
 		super();
 		this.castNum = castNum;
-		this.actorNum = actorNum;
 		this.filmNum = filmNum;
+		this.name = name;
 	}
 	public CastVo() {
 		super();
@@ -19,11 +19,11 @@ public class CastVo {
 	public void setCastNum(int castNum) {
 		this.castNum = castNum;
 	}
-	public int getActorNum() {
-		return actorNum;
+	public String getName() {
+		return name;
 	}
-	public void setActorNum(int actorNum) {
-		this.actorNum = actorNum;
+	public void setActorNum(String name) {
+		this.name = name;
 	}
 	public int getFilmNum() {
 		return filmNum;

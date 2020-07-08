@@ -2,11 +2,15 @@ package com.jhta.project.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class FilmVo {
 	private int filmNum;
 	private String filmName;
 	private String filmStory;
+	@DateTimeFormat(pattern = "yyyy-mm-dd" )
 	private Date filmStart;
+	@DateTimeFormat(pattern = "yyyy-mm-dd" )
 	private Date filmEnd;
 	private int filmPrice;
 	private String filmHead;

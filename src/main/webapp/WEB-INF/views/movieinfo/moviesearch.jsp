@@ -132,7 +132,14 @@
 	
 	function goBuy(title) {
 		//alert(title);
-		location.href="${cp}/movieinfo/moviebuy.do?title="+title;
+		var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+	    var t
+	    if(regExp.test(title)){
+	        t = title.replace(regExp, "");
+	    }else{
+	    	t = title;
+	    }
+		location.href="${cp}/movieinfo/moviebuy.do?title="+t;
 	}
 
 

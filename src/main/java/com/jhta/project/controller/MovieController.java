@@ -7,12 +7,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jhta.project.service.GenreService;
+import com.jhta.project.service.MovieBuyService;
+import com.jhta.project.vo.FilmVo;
+import com.jhta.project.vo.MovieImgVo;
 
 @Controller
 public class MovieController {
+	@Autowired
+	private GenreService genService;
+	
+	@Autowired
+	private MovieBuyService buyService;
+	
 	@RequestMapping("/movieinfo/movie.do")
 	public String movie() {
 		return ".movieinfo.movie";
@@ -20,9 +33,10 @@ public class MovieController {
 	
 	@RequestMapping("/movieinfo/moviebuy.do")
 	public String moviebuy(String title, Model model) throws IOException {
+		
 		StringBuffer sb=new StringBuffer();
 		title=URLEncoder.encode(title,"UTF-8");
-		String surl="https://openapi.naver.com/v1/search/movie.json?query="+title+"&display=5";	
+		String surl="https://openapi.naver.com/v1/search/movie.json?query="+title;	
 		URL url=new URL(surl);
 		System.out.println("url:"+url);
 		HttpURLConnection conn=(HttpURLConnection)url.openConnection(); //java url 연결을 위함
@@ -39,13 +53,28 @@ public class MovieController {
 	    			sb.append(line);
 	    		}
 	    		br.close();
-	    		System.out.println("============"+sb.toString());
 	    		conn.disconnect();//네이버와 접속해제
 	    	}
 	    }
 	    model.addAttribute("api",sb.toString());
-	    
+	    model.addAttribute("list",genService.selectboxinfo());
 		return ".movieinfo.movieinsert";
+	}
+	
+	@PostMapping("/movieinfo/moviebuyOk.do")
+	public String moviebuyok(FilmVo fvo, MovieImgVo mvo, String[] human) {
+		System.out.println(fvo.getFilmStart());
+		System.out.println(fvo.getFilmEnd());
+		System.out.println(mvo.getFileName());
+		System.out.println(human[0]);
+		try {
+			buyService.moviebuyservice(fvo, mvo, human);
+			return "success";
+			
+		}catch(Exception e) {
+			
+			return "error";
+		}
 	}
 }
 
