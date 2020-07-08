@@ -3,7 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.branch">
+	<sql id="search">
+		<if test="keyword!=null and keyword!=''">
+			where brname like '%'||#{keyword}||'%'
+			or memid like '%'||#{keyword}||'%'
+			or brstatus like '%'||#{keyword}||'%'
+		</if>
+	</sql>
 	<select id="getinfo" parameterType="int" resultType="branch">
 		select * from branch where branchNum=#{branchNum} 
+	</select>
+	<select id="list" parameterType="hashmap" resultType="branch">
+		select * from
+		(
+			select aa.*, rownum rnum from
+			(
+				select * from branch
+				<include refid="search"/>
+				order by branchnum desc
+			)aa
+		)
+		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
+	<insert id="insert" parameterType="branch">
+		insert into branch values(branchNum.nextVal,#{proNum},#{brName},#{memId},'영업중',sysdate)
+	</insert>
+	<select id="count" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from branch
+		<include refid="search"/>
 	</select>
 </mapper>

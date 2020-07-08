@@ -57,5 +57,11 @@ public class BranchVo {
 	public void setBrRegdate(Date brRegdate) {
 		this.brRegdate = brRegdate;
 	}
+	@Override
+	public String toString() {
+		return "BranchVo [branchNum=" + branchNum + ", proNum=" + proNum + ", brName=" + brName + ", memId=" + memId
+				+ ", brStatus=" + brStatus + ", brRegdate=" + brRegdate + "]";
+	}
+	
 	
 }

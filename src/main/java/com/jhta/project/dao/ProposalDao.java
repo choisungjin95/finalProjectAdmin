@@ -46,9 +46,10 @@ public class ProposalDao {
 		return session.update(NAMESPACE+".rejectProposal",proNum);
 	}
 	//게시판 상세에서 승인버튼 누르면 실행되는 함수
-	public int approveProposal(int proNum) {
+	public int approveProposal(ProposalVo proVo) {
 		System.out.println("dao타기");
-		return session.update(NAMESPACE+".approveProposal",proNum);
+		return session.update(NAMESPACE+".approveProposal",proVo.getProNum());
 	}
+
 	
 }

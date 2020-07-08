@@ -8,27 +8,27 @@
 			<tr>
 				<th>문의 아이디</th>
 				<td>${proVo.memberId }<input type="hidden" name="memberId"
-					vaLue="${proVo.memberId }"></td>
+					value="${proVo.memberId }"></td>
 			</tr>
 			<tr>
 				<th>문의 지점</th>
 				<td>${proVo.proAddr }<input type="hidden" name="proAddr"
-					vaLue="${proVo.proAddr }"></td>
+					value="${proVo.proAddr }"></td>
 			</tr>
 			<tr>
 				<th>오픈 목적</th>
 				<td>${proVo.proGoal }<input type="hidden" name="proGoal"
-					vaLue="${proVo.proGoal }"></td>
+					value="${proVo.proGoal }"></td>
 			</tr>
 			<tr>
 				<th>오픈 규모</th>
 				<td>${proVo.proScale }<input type="hidden" name="proScale"
-					vaLue="${proVo.proScale }"></td>
+					value="${proVo.proScale }"></td>
 			</tr>
 			<tr>
 				<th>진행 상태</th>
 				<td>${proVo.proStatus }<input type="hidden" name="proStatus"
-					vaLue="${proVo.proStatus }"></td>
+					value="${proVo.proStatus }"></td>
 			</tr>
 
 			<tr>

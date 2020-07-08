@@ -5,14 +5,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jhta.project.dao.BranchDao;
 import com.jhta.project.dao.ProposalDao;
+import com.jhta.project.vo.BranchVo;
 import com.jhta.project.vo.ProposalVo;
 
 @Service
 public class ProposalService {
 	@Autowired
 	private ProposalDao proDao;
+	@Autowired
+	private BranchDao brDao;
 
 	public List<ProposalVo> selectList() {
 		List<ProposalVo> list = proDao.selectList();
@@ -51,9 +56,12 @@ public class ProposalService {
 	}
 	
 	//게시판 상세에서 승인버튼 누르면 실행되는 함수
-	public int approveProposal(int proNum) {
+	@Transactional
+	public int approveProposal(ProposalVo proVo,BranchVo brVo) {
 		System.out.println("service타기");
-		return proDao.approveProposal(proNum);
+		brDao.appProposalNBranch(brVo);
+		return proDao.approveProposal(proVo);
+		
 	}
 
 }
