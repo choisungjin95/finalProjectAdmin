@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script type="text/javascript" src="${cp }/resources/js/jquery-3.5.1.js"></script>
 <div class="container" style="padding-top: 150px">
-	<form action="${cp }/proposal/approved" method="post">
-		<input type="hidden" name="proNum" vaLue="${proVo.proNum }">
+	
+	<form action="${cp }/proposal/approved" method="post" onsubmit="return showMsg('true')">
+		<input type="hidden" name="proNum" value="${proVo.proNum }">
 		<table class="table table-dark table-hover">
 			<tr>
 				<th>문의 아이디</th>
@@ -45,10 +47,9 @@
 		<div class="container">
 			<c:choose>
 				<c:when test="${proVo.proStatus=='대기중' }">
-					<input type="submit" value="승인" class="btn btn-outline-dark">
-					<input type="button" value="반려" class="btn btn-outline-dark"
-						id="rejected"
-						onclick="location.href='${cp}/proposal/rejected?proNum=${proVo.proNum }'">
+					<input type="submit" value="승인" class="btn btn-outline-dark" name="btn_approval">
+					<input type="button" value="반려" class="btn btn-outline-dark" id="rejected" name="btn_reject"
+						onclick="showMsg('false')">
 				</c:when>
 
 			</c:choose>
@@ -56,3 +57,15 @@
 		</div>
 	</form>
 </div>
+	<script type="text/javascript">
+	function showMsg(e){
+		if(e=='true'){
+			alert("승인되었습니다.");
+			//location.href='${cp}/proposal/approved?proNum=${proVo.proNum }';
+			return true;
+		}else{
+			alert("반려되었습니다");
+			location.href='${cp}/proposal/rejected?proNum=${proVo.proNum }';
+		}
+	};
+	</script>

@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+	function sendPageNum(i){
+		location.href='http://localhost:9090${cp }/proposal/brManagement?pageNum=${i}';
+	}
+
+</script>
 <div class="container" style="padding-top: 150px">
 	<table class="table table-dark table-hover">
 		<tr>
@@ -22,23 +28,26 @@
 				<tr>
 			</c:forEach>
 	</table>
-	<c:if test="${pu.pageNum >= 6}">
-		<span><a href="">이전</a></span>
-	</c:if>
+
 
 	<div id="paging" class="container">
 		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum}">
 			<c:choose>
 				<c:when test="${pu.pageNum == i}">
-					<a href="${cp }/proposal/brManagement?pageNum=${i}"><span
-						style="color: blue">[${i }]</span></a>
+				<button type="button" class="btn btn-outline-dark" style="font-weight: bold"
+				 onclick="">${i }</button>
+
 				</c:when>
+	
 				<c:otherwise>
-					<a href="${cp }/proposal/brManagement?pageNum=${i}"><span
-						style="color: red">[${i }]</span></a>
+				<button type="button" class="btn btn-outline-dark" style="color: blue" 
+				onclick="sendPageNum(i)">${i }</button>
+
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
+		<c:choose>
+			<c:when test="${pu.endPageNum<pu.totalPageCount}"><span class="btn btn-outline-dark"><a href="">다음</a></span></c:when>
+		</c:choose>
 	</div>
-	<span><a href=""></a></span>
 </div>
