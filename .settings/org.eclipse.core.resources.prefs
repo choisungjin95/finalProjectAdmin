@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=refs/remotes/origin/heo
@@ -6,3 +7,7 @@ encoding//src/main/java/com/jhta/project/dao/ProposalDao.java=UTF-8
 encoding//src/main/java/com/jhta/project/service/ProposalService.java=UTF-8
 encoding//src/main/java/com/jhta/project/vo/ProPagingVo.java=UTF-8
 encoding/<project>=UTF-8
+=======
+eclipse.preferences.version=1
+encoding/<project>=UTF-8
+>>>>>>> refs/remotes/origin/sung

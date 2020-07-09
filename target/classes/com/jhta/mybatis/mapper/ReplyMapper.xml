@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.reply">
 	<select id="getinfo" parameterType="int" resultType="reply">
-		select * from reply where revenueNum=#{revenueNum}
+		select * from reply where askNum=#{askNum}
 	</select>
+	<insert id="insert" parameterType="reply">
+		insert into reply(replyNum,staffId,qnaTitle,replyContent,replyRegdate,askNum)
+		values(replyNum.nextval,#{staffId},#{qnaTitle},#{replyContent},sysdate,#{askNum})
+	</insert>
+	<update id="update" parameterType="reply">
+		update reply set qnaTitle=#{qnaTitle}, replyContent=#{replyContent},replyRegdate=sysdate
+		where replyNum=#{replyNum}
+	</update>
 </mapper>

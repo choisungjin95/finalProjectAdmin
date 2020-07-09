@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.ask">
 	<select id="getinfo" parameterType="int" resultType="ask">
-		select * from ask where askNum=#{askNum} 
+		select a.*,m.memid,m.email from ask a,membership m
+		where a.memnum=m.memnum and a.askNum=#{askNum}
+	</select>
+	<select id="list" resultType="ask" parameterType="hashmap">
+		select * from (
+			    select ask.*,rownum rnum from( 
+			        select a.*,m.memid,m.email from ask a,membership m
+		            where a.memnum=m.memnum order by askNum desc
+			    )ask
+		    )
+		<![CDATA[	where rnum>=#{startRow} and rnum <=#{endRow} ]]>
+	</select>
+	<update id="respUpdate" parameterType="int">
+		update ask set response='답변완료' where askNum=#{askNum}
+	</update>
+	<select id="count" resultType="int">
+		select nvl(count(*),0) from ask
 	</select>
 </mapper>
