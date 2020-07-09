@@ -6,8 +6,8 @@
 	<select id="getinfo" parameterType="int" resultType="film">
 		select * from film where filmNum=#{filmNum} 
 	</select>
-	<insert id="moviebuy">
-		insert into film
-		values(filmNum.nextval,#{filmName},#{filmStory},#{filmStart},#{filmEnd},#{filmPrice},#{filmHead},#{filmStatus},#{genreNum})
+	<insert id="moviebuy" parameterType="film">
+		insert into film(filmNum,filmName,filmStory,filmStart,filmEnd,filmPrice,filmHead,genreNum)
+		values(filmNum.nextval,#{filmName},#{filmStory},#{filmStart},#{filmEnd},#{filmPrice},#{filmHead},#{genreNum})
 	</insert>
 </mapper>

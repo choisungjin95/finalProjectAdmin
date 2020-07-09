@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,39 +17,43 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.jhta.project.service.GenreService;
 import com.jhta.project.service.MovieBuyService;
+import com.jhta.project.service.RestService;
 import com.jhta.project.vo.FilmVo;
+import com.jhta.project.vo.GenreVo;
 import com.jhta.project.vo.MovieImgVo;
 
 @Controller
 public class MovieController {
 	@Autowired
-	private GenreService genService;
-	
-	@Autowired
-	private MovieBuyService buyService;
+	private RestService service;
 	
 	@RequestMapping("/movieinfo/movie.do")
 	public String movie() {
 		return ".movieinfo.movie";
 	}
+	@RequestMapping("/movieinfo/moviebox.do")
+	public String moviebox() {
+		return ".movieinfo.moviebox";
+	}
 	
 	@RequestMapping("/movieinfo/moviebuy.do")
 	public String moviebuy(String title, Model model) throws IOException {
-		
 		StringBuffer sb=new StringBuffer();
 		title=URLEncoder.encode(title,"UTF-8");
 		String surl="https://openapi.naver.com/v1/search/movie.json?query="+title;	
 		URL url=new URL(surl);
-		System.out.println("url:"+url);
-		HttpURLConnection conn=(HttpURLConnection)url.openConnection(); //java url ¿¬°áÀ» À§ÇÔ
+		HttpURLConnection conn=(HttpURLConnection)url.openConnection(); //java url ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		conn.setRequestProperty("X-Naver-Client-Id","qf1ksFUxXZziynfLDCaS");
 	    conn.setRequestProperty("X-Naver-Client-Secret", "hjtFhODhB6");
 	    if(conn!=null){
-	    	conn.setConnectTimeout(10000);//Á¢¼Ó´ë±â½Ã°£ 10ÃÊ ¼³Á¤
-	    	conn.setUseCaches(false);//Ä³½¬»ç¿ë¾ÈÇÏ±â
-	    	if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){//¼­¹ö·ÎºÎÅÍ ÀÀ´äÀÌ ¼º°øÀûÀ¸·Î ¿ÔÀ¸¸é
+	    	conn.setConnectTimeout(10000);//ï¿½ï¿½ï¿½Ó´ï¿½ï¿½Ã°ï¿½ 10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	    	conn.setUseCaches(false);//Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+	    	if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){//ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    		BufferedReader br=
 	    		 new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
 	    		String line="";
@@ -53,27 +61,38 @@ public class MovieController {
 	    			sb.append(line);
 	    		}
 	    		br.close();
-	    		conn.disconnect();//³×ÀÌ¹ö¿Í Á¢¼ÓÇØÁ¦
+	    		conn.disconnect();
 	    	}
 	    }
+	    String url1="http://localhost:9090/projectdb/movieinfo/genre.do";
+	    String code=service.get(url1).trim();
+	    Gson gson=new Gson();
+		GenreVo[] array=gson.fromJson(code, GenreVo[].class);
+		List<GenreVo> list=Arrays.asList(array);
 	    model.addAttribute("api",sb.toString());
-	    model.addAttribute("list",genService.selectboxinfo());
+	    model.addAttribute("list",list);
 		return ".movieinfo.movieinsert";
 	}
 	
 	@PostMapping("/movieinfo/moviebuyOk.do")
 	public String moviebuyok(FilmVo fvo, MovieImgVo mvo, String[] human) {
-		System.out.println(fvo.getFilmStart());
-		System.out.println(fvo.getFilmEnd());
-		System.out.println(mvo.getFileName());
-		System.out.println(human[0]);
 		try {
-			buyService.moviebuyservice(fvo, mvo, human);
-			return "success";
-			
+			String url="http://localhost:9090/projectdb/movieinfo/moviebuyOk.do";
+			ObjectMapper mapper=new ObjectMapper();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			fvo.setFilmStart(sdf.parse(sdf.format(fvo.getFilmStart())));
+			fvo.setFilmEnd(sdf.parse(sdf.format(fvo.getFilmEnd())));
+			String jsonString= mapper.writeValueAsString(fvo);
+			jsonString+= mapper.writeValueAsString(mvo);
+			jsonString+= mapper.writeValueAsString(human);
+			String code=service.post(url,jsonString);
+			if(code.equals("success")) {
+				return "/result/success";
+			}else {
+				return "/result/error";
+			}
 		}catch(Exception e) {
-			
-			return "error";
+			return "/result/error";
 		}
 	}
 }

@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 public class FilmVo {
 	private int filmNum;
 	private String filmName;
@@ -68,10 +71,10 @@ public class FilmVo {
 	public void setFilmPrice(int filmPrice) {
 		this.filmPrice = filmPrice;
 	}
-	public String getRunnigTime() {
+	public String getFilmHead() {
 		return filmHead;
 	}
-	public void setRunnigTime(String filmHead) {
+	public void setFilmHead(String filmHead) {
 		this.filmHead = filmHead;
 	}
 	public String getFilmStatus() {

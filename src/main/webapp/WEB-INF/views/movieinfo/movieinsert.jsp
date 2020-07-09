@@ -14,15 +14,14 @@
 		var str=actor.split("|");
 		console.log(str[1]);
 		for(var i=0;i<str.length-1;i++){
-			var strr=str[i].replace(" ","");
+			var strr=str[i].replace(" ","　");
 			console.log(strr);
 			$("#actor").append("<input type='hidden' name='human' value="+strr+"></input>");
 			$("#actor").append("<li name='human1' value="+str[i]+">"+str[i]+"</li>");
 		} 
 		var image = ${api}.items[0].image;
 		$("#img").attr("src",image);
-		$("#immg").val(image);
-		
+		$("#immg").val(image);	
 	});
 </script>
 
@@ -55,7 +54,7 @@
 			
 			</ul>
 			이미지<br>
-			<input type="text" name="filename" id="immg">
+			<input type="hidden" name="fileName" id="immg">
 			<img id="img" src="">
 		</div>
 	</div>

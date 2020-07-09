@@ -13,7 +13,7 @@ public class FilmDao {
 	private final String NAMESPACE="com.jhta.mybatis.mapper.film";
 	
 	public int moviebuy(FilmVo vo) {
-		System.out.println("dao");
+		System.out.println("ÇÊ¸§dao");
 		return sqlSession.insert(NAMESPACE+".moviebuy",vo);
 	}
 }

@@ -24,10 +24,13 @@ public class MovieBuyService {
 	public int moviebuyservice(FilmVo fvo,MovieImgVo mvo,String[] name) {
 		
 		fdao.moviebuy(fvo);
+		System.out.println("film");
 		mdao.moviebuy(mvo);
+		System.out.println("img");
 		for(int i=0;i<name.length;i++) {
 			CastVo cvo=new CastVo(0, name[i], 0);
-			cdao.moviebuy(cvo);			
+			cdao.moviebuy(cvo);
+			System.out.println("cast");
 		}
 		
 		return 1;
