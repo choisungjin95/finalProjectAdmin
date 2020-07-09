@@ -1,25 +1,16 @@
 package com.jhta.project.vo;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
-
 public class FilmVo {
 	private int filmNum;
 	private String filmName;
 	private String filmStory;
-	@DateTimeFormat(pattern = "yyyy-mm-dd" )
-	private Date filmStart;
-	@DateTimeFormat(pattern = "yyyy-mm-dd" )
-	private Date filmEnd;
+	private String filmStart;
+	private String filmEnd;
 	private int filmPrice;
 	private String filmHead;
 	private String filmStatus;
 	private int genreNum;
-	public FilmVo(int filmNum, String filmName, String filmStory, Date filmStart, Date filmEnd, int filmPrice,
+	public FilmVo(int filmNum, String filmName, String filmStory, String filmStart, String filmEnd, int filmPrice,
 			String filmHead, String filmStatus, int genreNum) {
 		super();
 		this.filmNum = filmNum;
@@ -53,16 +44,16 @@ public class FilmVo {
 	public void setFilmStory(String filmStory) {
 		this.filmStory = filmStory;
 	}
-	public Date getFilmStart() {
+	public String getFilmStart() {
 		return filmStart;
 	}
-	public void setFilmStart(Date filmStart) {
+	public void setFilmStart(String filmStart) {
 		this.filmStart = filmStart;
 	}
-	public Date getFilmEnd() {
+	public String getFilmEnd() {
 		return filmEnd;
 	}
-	public void setFilmEnd(Date filmEnd) {
+	public void setFilmEnd(String filmEnd) {
 		this.filmEnd = filmEnd;
 	}
 	public int getFilmPrice() {

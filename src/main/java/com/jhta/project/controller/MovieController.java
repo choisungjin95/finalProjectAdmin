@@ -7,8 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +81,14 @@ public class MovieController {
 		try {
 			String url="http://localhost:9090/projectdb/movieinfo/moviebuyOk.do";
 			ObjectMapper mapper=new ObjectMapper();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-			fvo.setFilmStart(sdf.parse(sdf.format(fvo.getFilmStart())));
-			fvo.setFilmEnd(sdf.parse(sdf.format(fvo.getFilmEnd())));
-			String jsonString= mapper.writeValueAsString(fvo);
+			String jsonString=mapper.writeValueAsString(fvo);
 			jsonString+= mapper.writeValueAsString(mvo);
-			jsonString+= mapper.writeValueAsString(human);
+			HashMap<String,String> map=new HashMap<String, String>();
+			for(int i=0;i<human.length;i++) {
+				map.put("name"+i,human[i]);
+			}
+			jsonString+= ","+mapper.writeValueAsString(map);
+			System.out.println(jsonString);
 			String code=service.post(url,jsonString);
 			if(code.equals("success")) {
 				return "/result/success";
