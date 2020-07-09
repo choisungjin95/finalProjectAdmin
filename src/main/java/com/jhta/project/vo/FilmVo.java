@@ -1,5 +1,6 @@
 package com.jhta.project.vo;
 
+
 public class FilmVo {
 	private int filmNum;
 	private String filmName;
