@@ -6,7 +6,6 @@
 	function sendPageNum(i){
 		location.href='http://localhost:9090${cp }/proposal/brManagement?pageNum=${i}';
 	}
-
 </script>
 <div class="container" style="padding-top: 150px">
 	<table class="table table-dark table-hover">
@@ -34,14 +33,14 @@
 		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum}">
 			<c:choose>
 				<c:when test="${pu.pageNum == i}">
-				<button type="button" class="btn btn-outline-dark" style="font-weight: bold"
-				 onclick="">${i }</button>
+				<a href="${cp }proposal/brManagement?pageNum=${i}"><button type="button" 
+				class="btn btn-outline-dark" style="font-weight: bold">${i }</button></a>
 
 				</c:when>
 	
 				<c:otherwise>
-				<button type="button" class="btn btn-outline-dark" style="color: blue" 
-				onclick="sendPageNum(i)">${i }</button>
+				<a href="${cp }/proposal/brManagement?pageNum=${i}"><button type="button" 
+				class="btn btn-outline-dark" style="color: blue">${i }</button></a>
 
 				</c:otherwise>
 			</c:choose>
