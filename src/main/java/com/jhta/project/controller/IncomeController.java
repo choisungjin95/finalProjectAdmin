@@ -53,15 +53,9 @@ public class IncomeController {
 
 	@RequestMapping("/admin/income/moive.do")
 	public String goIncomeMoive(Model model) {
-<<<<<<< HEAD
-		String branchUrl ="http://localhost:9090/projectdb/admin/income/branch.do";
-		String sbranch = service.get(branchUrl).trim();
-		String filmUrl = "http://localhost:9090/projectdb/admin/income/film.do";
-=======
 		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/branch.do";
 		String sbranch = service.get(branchUrl).trim();
 		String filmUrl = "http://192.168.0.12:9090/projectdb/admin/income/film.do";
->>>>>>> heo
 		String fbranch = service.get(filmUrl).trim();
 		Gson gson=new Gson();
 		String[] array=gson.fromJson(sbranch, String[].class);
@@ -88,22 +82,14 @@ public class IncomeController {
 	@RequestMapping("/admin/income/getChat")
 	@ResponseBody
 	public String getmovieChat(String filmName) {
-<<<<<<< HEAD
-		String branchUrl ="http://localhost:9090/projectdb/admin/income/getMovieChat.do?filmName="+filmName;
-=======
 		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/getMovieChat.do?filmName="+filmName;
->>>>>>> heo
 		String sbranch = service.get(branchUrl).trim();
 		return sbranch;
 	}
 	@RequestMapping("/admin/income/getBranchChat")
 	@ResponseBody
 	public String getBranchChat(String brName) {
-<<<<<<< HEAD
-		String branchUrl ="http://localhost:9090/projectdb/admin/income/getBranchChat.do?brName="+brName;
-=======
 		String branchUrl ="http://192.168.0.12:9090/projectdb/admin/income/getBranchChat.do?brName="+brName;
->>>>>>> heo
 		String sbranch = service.get(branchUrl).trim();
 		return sbranch;
 	}
