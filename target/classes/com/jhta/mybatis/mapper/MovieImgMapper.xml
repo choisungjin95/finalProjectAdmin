@@ -6,4 +6,8 @@
 	<select id="getinfo" parameterType="int" resultType="movieimg">
 		select * from movieimg where movieImgnum=#{movieImgnum}
 	</select>
+	<insert id="moviebuy" parameterType="movieimg">
+		insert into movieimg(movieImgnum,fileName,filmNum)
+		values(movieImgnum.nextval,#{fileName},filmNum.currval)
+	</insert>
 </mapper>

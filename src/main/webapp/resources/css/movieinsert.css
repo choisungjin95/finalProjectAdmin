@@ -1,0 +1,44 @@
+@charset "UTF-8";
+#content{
+	width: 73%;
+    height: 70%;
+    padding-left: 25%;
+}
+#main{
+	width:654px;
+	height: 640px;
+	margin: auto;
+	position: relative;
+    left: -2px;
+    top: 5px;
+    border: 6px solid #8000ff;
+}
+h1{
+	text-align: center;
+}
+#film {
+    width: 320px;
+    float: left;
+    padding-left: 25px;
+	padding-top: 22px;
+}
+#cast{
+	width: 273px;
+	float: left;
+	padding-left: 33px;
+	padding-top: 22px;
+}
+#add{
+	position: fixed;
+    left: 1184px;
+    top: 670px;
+}
+#title,#filmHead,#filmPrice,#filmImg{
+	width: 267px;
+}
+ul{
+   list-style:none;
+   padding-left:0px;
+}
+
+

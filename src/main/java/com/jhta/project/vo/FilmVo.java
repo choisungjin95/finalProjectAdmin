@@ -1,19 +1,18 @@
 package com.jhta.project.vo;
 
-import java.util.Date;
 
 public class FilmVo {
 	private int filmNum;
 	private String filmName;
 	private String filmStory;
-	private Date filmStart;
-	private Date filmEnd;
+	private String filmStart;
+	private String filmEnd;
 	private int filmPrice;
-	private String runnigTime;
+	private String filmHead;
 	private String filmStatus;
 	private int genreNum;
-	public FilmVo(int filmNum, String filmName, String filmStory, Date filmStart, Date filmEnd, int filmPrice,
-			String runnigTime, String filmStatus, int genreNum) {
+	public FilmVo(int filmNum, String filmName, String filmStory, String filmStart, String filmEnd, int filmPrice,
+			String filmHead, String filmStatus, int genreNum) {
 		super();
 		this.filmNum = filmNum;
 		this.filmName = filmName;
@@ -21,7 +20,7 @@ public class FilmVo {
 		this.filmStart = filmStart;
 		this.filmEnd = filmEnd;
 		this.filmPrice = filmPrice;
-		this.runnigTime = runnigTime;
+		this.filmHead = filmHead;
 		this.filmStatus = filmStatus;
 		this.genreNum = genreNum;
 	}
@@ -46,16 +45,16 @@ public class FilmVo {
 	public void setFilmStory(String filmStory) {
 		this.filmStory = filmStory;
 	}
-	public Date getFilmStart() {
+	public String getFilmStart() {
 		return filmStart;
 	}
-	public void setFilmStart(Date filmStart) {
+	public void setFilmStart(String filmStart) {
 		this.filmStart = filmStart;
 	}
-	public Date getFilmEnd() {
+	public String getFilmEnd() {
 		return filmEnd;
 	}
-	public void setFilmEnd(Date filmEnd) {
+	public void setFilmEnd(String filmEnd) {
 		this.filmEnd = filmEnd;
 	}
 	public int getFilmPrice() {
@@ -64,11 +63,11 @@ public class FilmVo {
 	public void setFilmPrice(int filmPrice) {
 		this.filmPrice = filmPrice;
 	}
-	public String getRunnigTime() {
-		return runnigTime;
+	public String getFilmHead() {
+		return filmHead;
 	}
-	public void setRunnigTime(String runnigTime) {
-		this.runnigTime = runnigTime;
+	public void setFilmHead(String filmHead) {
+		this.filmHead = filmHead;
 	}
 	public String getFilmStatus() {
 		return filmStatus;

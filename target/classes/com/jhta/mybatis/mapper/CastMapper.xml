@@ -6,4 +6,8 @@
 	<select id="getinfo" parameterType="int" resultType="cast">
 		select * from cast where castNum=#{castNum} 
 	</select>
+	<insert id="moviebuy" parameterType="cast">
+		insert into cast(castNum,name,filmNum)
+		values(castNum.nextval,#{name},filmNum.currval)
+	</insert>
 </mapper>
