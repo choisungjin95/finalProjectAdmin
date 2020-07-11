@@ -6,4 +6,22 @@
 	<select id="getinfo" parameterType="int" resultType="branch">
 		select * from branch where branchNum=#{branchNum} 
 	</select>
+	
+	<resultMap type="hashMap" id="getResultMap">
+		<id property="outcome" column="outcome"/>
+		<id property="ticketIncome" column="ticketIncome"/>
+		<id property="storeIncome" column="storeIncome"/>
+		<id property="revenueDate" column="revenueDate"/>
+	</resultMap>
+	
+	<select id="getChat" parameterType="string" resultMap="getResultMap">
+		select r.outcome,r.ticketIncome,r.storeIncome,r.revenueDate
+		from branch b,revenue r where b.branchNum=r.branchNum and 
+		brName = #{brName}
+	</select>
+	
+	<select id="getName" resultType="string" parameterType="string">
+		select brName from branch
+	</select>
+	
 </mapper>

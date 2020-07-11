@@ -10,4 +10,19 @@
 		insert into film(filmNum,filmName,filmStory,filmStart,filmEnd,filmPrice,filmHead,genreNum)
 		values(filmNum.nextval,#{filmName},#{filmStory},#{filmStart},#{filmEnd},#{filmPrice},#{filmHead},#{genreNum})
 	</insert>
+	<resultMap type="hashMap" id="getResultMap">
+		<id property="totalPeople" column="totalPeople"/>
+		<id property="totalPrice" column="totalPrice"/>
+		<id property="totalDate" column="totalDate"/>
+		<id property="filmPrice" column="filmPrice"/>
+	</resultMap>
+	
+	<select id="getChat" parameterType="string" resultMap="getResultMap">
+		select t.totalPeople,t.totalPrice,t.totalDate,f.filmPrice from total t,film f where f.filmName=#{filmName} 
+		and t.filmNum = f.filmNum order by t.totalDate
+	</select>
+	
+	<select id="getName" resultType="string" parameterType="string">
+		select filmName from film
+	</select>
 </mapper>
