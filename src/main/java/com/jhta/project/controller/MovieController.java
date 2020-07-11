@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,9 @@ import com.jhta.project.service.MovieBuyService;
 import com.jhta.project.service.RestService;
 import com.jhta.project.vo.FilmVo;
 import com.jhta.project.vo.GenreVo;
+import com.jhta.project.vo.MovieBuyVo;
 import com.jhta.project.vo.MovieImgVo;
+import com.jhta.project.vo.common.Response;
 
 @Controller
 public class MovieController {
@@ -66,13 +69,13 @@ public class MovieController {
 	    		conn.disconnect();
 	    	}
 	    }
-	    String url1="http://localhost:9090/projectdb/movieinfo/genre.do";
-	    String code=service.get(url1).trim();
-	    Gson gson=new Gson();
-		GenreVo[] array=gson.fromJson(code, GenreVo[].class);
-		List<GenreVo> list=Arrays.asList(array);
+//	    String url1="http://localhost:9090/projectdb/movieinfo/genre.do";
+//	    String code=service.get(url1).trim();
+//	    Gson gson=new Gson();
+//		GenreVo[] array=gson.fromJson(code, GenreVo[].class);
+//		List<GenreVo> list=Arrays.asList(array);
+//	    model.addAttribute("list",list);
 	    model.addAttribute("api",sb.toString());
-	    model.addAttribute("list",list);
 		return ".movieinfo.movieinsert";
 	}
 	
@@ -80,17 +83,31 @@ public class MovieController {
 	public String moviebuyok(FilmVo fvo, MovieImgVo mvo, String[] human) {
 		try {
 			String url="http://localhost:9090/projectdb/movieinfo/moviebuyOk.do";
-			ObjectMapper mapper=new ObjectMapper();
-			String jsonString=mapper.writeValueAsString(fvo);
-			jsonString+= mapper.writeValueAsString(mvo);
-			HashMap<String,String> map=new HashMap<String, String>();
-			for(int i=0;i<human.length;i++) {
-				map.put("name"+i,human[i]);
-			}
-			jsonString+= ","+mapper.writeValueAsString(map);
-			System.out.println(jsonString);
-			String code=service.post(url,jsonString);
-			if(code.equals("success")) {
+//			ObjectMapper mapper=new ObjectMapper();
+//			String jsonString=mapper.writeValueAsString(fvo);
+//			jsonString+= mapper.writeValueAsString(mvo);
+//			HashMap<String,String> map=new HashMap<String, String>();
+//			for(int i=0;i<human.length;i++) {
+//				map.put("name"+i,human[i]);
+//			}
+//			jsonString+= ","+mapper.writeValueAsString(map);
+//			System.out.println(jsonString);
+//			String code=service.post(url,jsonString);
+			Gson gson=new Gson();
+			MovieBuyVo vo=new MovieBuyVo();
+			vo.setFilmVo(fvo);
+			vo.setMovieImgVo(mvo);
+			vo.setHuman(human);
+			
+			String jsonString=gson.toJson(vo, MovieBuyVo.class);
+			
+			String code=service.post(url, jsonString).trim();
+			
+			Response res1 = gson.fromJson(code, Response.class);
+			
+			System.out.println(res1.getResult());
+			
+			if(res1.getResultCode().equals("success")) {
 				return "/result/success";
 			}else {
 				return "/result/error";
