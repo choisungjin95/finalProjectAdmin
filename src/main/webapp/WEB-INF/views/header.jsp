@@ -21,7 +21,7 @@
           <a class="nav-link" href="${cp }/proposal/brManagement">지점관리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">상영상황 조회</a>
+          <a class="nav-link" href="${cp }/branch.do">상영상황 조회</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${cp}/service/service.do">고객센터</a>

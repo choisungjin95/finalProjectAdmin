@@ -135,16 +135,16 @@ public class ProposalController {
 		if(updateNum<1) {
 			return "error";
 		}else {
-			model.addAttribute("proVo",proVo);
+			String url="http://localhost:9090/projectdb/proposal/proBoardDetail/proGetinfo?proNum="+proVo.getProNum();
+			String sproVo=service.get(url).trim();
+			ProposalVo proVo1=gson.fromJson(sproVo, ProposalVo.class);
 			String url1="http://localhost:9090/projectdb/proposal/proBoardDetail/nextPro?proNum="+proVo.getProNum();
 			String snextVo=service.get(url1).trim();
 			ProposalVo nextVo=gson.fromJson(snextVo, ProposalVo.class);
-			model.addAttribute("proVo",proVo);
-			model.addAttribute("nextVo",nextVo);
 			String url2="http://localhost:9090/projectdb/proposal/proBoardDetail/prePro?proNum="+proVo.getProNum();
 			String spreVo=service.get(url2).trim();
 			ProposalVo preVo=gson.fromJson(spreVo, ProposalVo.class);
-			model.addAttribute("proVo",proVo);
+			model.addAttribute("proVo",proVo1);
 			model.addAttribute("nextVo",nextVo);
 			model.addAttribute("preVo",preVo);
 			String setfrom = "maple950205@gmail.com";
