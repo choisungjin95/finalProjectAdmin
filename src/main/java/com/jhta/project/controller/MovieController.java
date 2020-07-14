@@ -69,12 +69,12 @@ public class MovieController {
 	    		conn.disconnect();
 	    	}
 	    }
-//	    String url1="http://localhost:9090/projectdb/movieinfo/genre.do";
-//	    String code=service.get(url1).trim();
-//	    Gson gson=new Gson();
-//		GenreVo[] array=gson.fromJson(code, GenreVo[].class);
-//		List<GenreVo> list=Arrays.asList(array);
-//	    model.addAttribute("list",list);
+	    String url1="http://localhost:9090/projectdb/movieinfo/genre.do";
+	    String code=service.get(url1).trim();
+	    Gson gson=new Gson();
+		GenreVo[] array=gson.fromJson(code, GenreVo[].class);
+		List<GenreVo> list=Arrays.asList(array);
+	    model.addAttribute("list",list);
 	    model.addAttribute("api",sb.toString());
 		return ".movieinfo.movieinsert";
 	}
@@ -83,16 +83,6 @@ public class MovieController {
 	public String moviebuyok(FilmVo fvo, MovieImgVo mvo, String[] human) {
 		try {
 			String url="http://localhost:9090/projectdb/movieinfo/moviebuyOk.do";
-//			ObjectMapper mapper=new ObjectMapper();
-//			String jsonString=mapper.writeValueAsString(fvo);
-//			jsonString+= mapper.writeValueAsString(mvo);
-//			HashMap<String,String> map=new HashMap<String, String>();
-//			for(int i=0;i<human.length;i++) {
-//				map.put("name"+i,human[i]);
-//			}
-//			jsonString+= ","+mapper.writeValueAsString(map);
-//			System.out.println(jsonString);
-//			String code=service.post(url,jsonString);
 			Gson gson=new Gson();
 			MovieBuyVo vo=new MovieBuyVo();
 			vo.setFilmVo(fvo);
@@ -100,13 +90,9 @@ public class MovieController {
 			vo.setHuman(human);
 			
 			String jsonString=gson.toJson(vo, MovieBuyVo.class);
-			
 			String code=service.post(url, jsonString).trim();
-			
 			Response res1 = gson.fromJson(code, Response.class);
-			
 			System.out.println(res1.getResult());
-			
 			if(res1.getResultCode().equals("success")) {
 				return "/result/success";
 			}else {

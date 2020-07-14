@@ -66,5 +66,10 @@ public class ProposalVo {
 	public void setProRegdate(Date proRegdate) {
 		this.proRegdate = proRegdate;
 	}
+	@Override
+	public String toString() {
+		return "ProposalVo [proNum=" + proNum + ", memberId=" + memberId + ", proAddr=" + proAddr + ", proGoal="
+				+ proGoal + ", proScale=" + proScale + ", proStatus=" + proStatus + ", proRegdate=" + proRegdate + "]";
+	}
 	
 }

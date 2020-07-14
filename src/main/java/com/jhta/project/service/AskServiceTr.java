@@ -1,3 +1,4 @@
+
 package com.jhta.project.service;
 
 public interface AskServiceTr {
