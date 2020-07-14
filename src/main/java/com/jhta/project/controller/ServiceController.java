@@ -52,7 +52,7 @@ public class ServiceController {
 	
 	@RequestMapping(value="/service/qna/insertOk.do",method=RequestMethod.POST)
 	public String qnaInsertOk(QnaVo vo) throws JsonProcessingException {
-		String url="http://192.168.0.12:9090/projectdb/service/qna/insertOk.do";
+		String url="http://localhost:9090/projectdb/service/qna/insertOk.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(vo);
 		String code=service.post(url,jsonString).trim();
@@ -65,7 +65,7 @@ public class ServiceController {
 	
 	@RequestMapping(value="/service/qna/update.do",method = RequestMethod.GET)
 	public String qnaUpdate(Model model,int qnaNum) {
-		String url = "http://192.168.0.12:9090/projectdb/service/qna/update.do?qnaNum="+qnaNum;
+		String url = "http://localhost:9090/projectdb/service/qna/update.do?qnaNum="+qnaNum;
 		String code=service.get(url).trim();
 		Gson gson=new Gson();
 		QnaVo vo=gson.fromJson(code, QnaVo.class);
@@ -75,7 +75,7 @@ public class ServiceController {
 	
 	@RequestMapping(value="/service/qna/updateOk.do",method=RequestMethod.POST)
 	public String qnaUpdateOk(QnaVo vo) throws JsonProcessingException {
-		String url="http://192.168.0.12:9090/projectdb/service/qna/updateOk.do";
+		String url="http://localhost:9090/projectdb/service/qna/updateOk.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(vo);
 		String code=service.post(url,jsonString).trim();
@@ -88,7 +88,7 @@ public class ServiceController {
 	
 	@RequestMapping(value="/service/qna/delete.do",method = RequestMethod.GET)
 	public String qnaDelete(Model model,int qnaNum) {
-		String url = "http://192.168.0.12:9090/projectdb/service/qna/delete.do?qnaNum="+qnaNum;
+		String url = "http://localhost:9090/projectdb/service/qna/delete.do?qnaNum="+qnaNum;
 		String code=service.get(url).trim();
 		if(code.equals("success")) {
 			return "redirect:/service/qna/list.do";
@@ -99,14 +99,14 @@ public class ServiceController {
 	
 	@RequestMapping(value="/service/qna/list.do",method=RequestMethod.GET)
 	public String qnaList(Model model,@RequestParam(value="pageNum",defaultValue = "1")int pageNum) throws JsonProcessingException {
-		String urlCount="http://192.168.0.12:9090/projectdb/service/qna/count.do?pageNum="+pageNum;
+		String urlCount="http://localhost:9090/projectdb/service/qna/count.do?pageNum="+pageNum;
 		String scount=service.get(urlCount).trim();
 		int totalRowCount=Integer.parseInt(scount);
 		PageUtil pu=new PageUtil(pageNum, totalRowCount, 5, 5);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		String url="http://192.168.0.12:9090/projectdb/service/qna/list.do";
+		String url="http://localhost:9090/projectdb/service/qna/list.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(map);
 		String slist = service.post(url, jsonString).trim();
@@ -123,14 +123,14 @@ public class ServiceController {
 	//질문 목록(성진)
 	@RequestMapping(value="/service/reply/askList.do",method=RequestMethod.GET)
 	public String askList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,Model model) throws JsonProcessingException {
-		String urlCount="http://192.168.0.12:9090/projectdb/service/reply/count.do";
+		String urlCount="http://localhost:9090/projectdb/service/reply/count.do";
 		String scount=service.get(urlCount).trim();
 		int totalRowCount=Integer.parseInt(scount);
 		PageUtil pu=new PageUtil(pageNum, totalRowCount, 5, 5);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		String url="http://192.168.0.12:9090/projectdb/service/reply/askList.do";
+		String url="http://localhost:9090/projectdb/service/reply/askList.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(map);
 		String slist = service.post(url, jsonString).trim();
@@ -146,7 +146,7 @@ public class ServiceController {
 	//질문 자세히 보기(성진)
 	@RequestMapping(value="/service/reply/getinfo.do",method=RequestMethod.GET)
 	public String getInfo(int askNum,Model model) {
-		String url = "http://192.168.0.12:9090/projectdb/service/reply/getinfo.do?askNum="+askNum;
+		String url = "http://localhost:9090/projectdb/service/reply/getinfo.do?askNum="+askNum;
 		String code=service.get(url).trim();
 		Gson gson=new Gson();
 		HashMap<String,Object> map=gson.fromJson(code, HashMap.class);
@@ -163,7 +163,7 @@ public class ServiceController {
 	//질문 답변하기(성진)
 	@RequestMapping(value="/service/reply/insert.do",method=RequestMethod.POST)
 	public String replyInsert(ReplyVo vo) throws JsonProcessingException{
-		String url="http://192.168.0.12:9090/projectdb/service/reply/insert.do";
+		String url="http://localhost:9090/projectdb/service/reply/insert.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(vo);
 		String code=service.post(url,jsonString).trim();
@@ -196,7 +196,7 @@ public class ServiceController {
 	@RequestMapping(value="/service/reply/update.do",method=RequestMethod.POST)
 	public String replyUpdate(ReplyVo vo) throws JsonProcessingException {
 		System.out.println("vo------------"+vo);
-		String url="http://192.168.0.12:9090/projectdb/service/reply/update.do";
+		String url="http://localhost:9090/projectdb/service/reply/update.do";
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonString= mapper.writeValueAsString(vo);
 		String code=service.post(url,jsonString).trim();

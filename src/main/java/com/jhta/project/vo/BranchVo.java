@@ -1,15 +1,13 @@
 package com.jhta.project.vo;
 
-import java.util.Date;
-
 public class BranchVo {
 	private int branchNum;
 	private int proNum;
 	private String brName;
 	private String memId;
 	private String brStatus;
-	private Date brRegdate;
-	public BranchVo(int branchNum, int proNum, String brName, String memId, String brStatus, Date brRegdate) {
+	private String brRegdate;
+	public BranchVo(int branchNum, int proNum, String brName, String memId, String brStatus, String brRegdate) {
 		super();
 		this.branchNum = branchNum;
 		this.proNum = proNum;
@@ -51,11 +49,10 @@ public class BranchVo {
 	public void setBrStatus(String brStatus) {
 		this.brStatus = brStatus;
 	}
-	public Date getBrRegdate() {
+	public String getBrRegdate() {
 		return brRegdate;
 	}
-	public void setBrRegdate(Date brRegdate) {
+	public void setBrRegdate(String brRegdate) {
 		this.brRegdate = brRegdate;
 	}
-	
 }
