@@ -46,7 +46,7 @@
 			장르<br>
 			<select name="genreNum" id="genre">
 				<c:forEach var="vo" items="${list }">
-					<option value="${vo.genreNum }">${vo.sffPosition }</option>
+					<option value="${vo.genreNum }">${vo.genreName }</option>
 				</c:forEach>
 			</select><br>
 			출연진<br>

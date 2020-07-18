@@ -2,11 +2,11 @@ package com.jhta.project.vo;
 
 public class GenreVo {
 	private int genreNum;
-	private String sffPosition;
-	public GenreVo(int genreNum, String sffPosition) {
+	private String genreName;
+	public GenreVo(int genreNum, String genreName) {
 		super();
 		this.genreNum = genreNum;
-		this.sffPosition = sffPosition;
+		this.genreName = genreName;
 	}
 	public GenreVo() {
 		super();
@@ -17,11 +17,11 @@ public class GenreVo {
 	public void setGenreNum(int genreNum) {
 		this.genreNum = genreNum;
 	}
-	public String getSffPosition() {
-		return sffPosition;
+	public String getGenreName() {
+		return genreName;
 	}
-	public void setSffPosition(String sffPosition) {
-		this.sffPosition = sffPosition;
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
 	}
 	
 }
