@@ -54,7 +54,7 @@
 			
 			</ul>
 			이미지<br>
-			<input type="hidden" name="fileName" id="immg">
+			<input type="text" name="movieImgUrl" id="immg">
 			<img id="img" src="">
 		</div>
 	</div>
