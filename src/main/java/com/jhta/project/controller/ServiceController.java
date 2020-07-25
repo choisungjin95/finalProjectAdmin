@@ -24,6 +24,7 @@ import com.jhta.project.service.AskServiceTr;
 import com.jhta.project.service.RestService;
 import com.jhta.project.vo.AskVo;
 import com.jhta.project.vo.QnaVo;
+import com.jhta.project.vo.ReplayInfoVo;
 import com.jhta.project.vo.ReplyVo;
 
 @Controller
@@ -149,13 +150,12 @@ public class ServiceController {
 		String url = "http://localhost:9090/projectdb/service/reply/getinfo.do?askNum="+askNum;
 		String code=service.get(url).trim();
 		Gson gson=new Gson();
-		HashMap<String,Object> map=gson.fromJson(code, HashMap.class);
-		AskVo vo= gson.fromJson(map.get("vo").toString(), AskVo.class);
-		if(map.get("vo1")!=null) {
-			ReplyVo vo1= gson.fromJson(map.get("vo1").toString(), ReplyVo.class);
+		ReplayInfoVo rvo=gson.fromJson(code, ReplayInfoVo.class);
+		if(rvo.getVo1()!=null) {
+			ReplyVo vo1= rvo.getVo1();
 			model.addAttribute("vo1", vo1);
 		}
-		model.addAttribute("vo", vo);
+		model.addAttribute("vo", rvo.getVo());
 		return ".service.reply.getinfo";
 	}
 	
