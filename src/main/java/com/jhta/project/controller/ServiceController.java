@@ -140,7 +140,7 @@ public class ServiceController {
 		List<AskVo> list=Arrays.asList(array);
 		model.addAttribute("list",list);
 		model.addAttribute("pu",pu);
-		
+		System.out.println(slist);
 		return ".service.reply.reply";
 	}
 	
