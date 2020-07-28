@@ -10,6 +10,7 @@ public class AskVo {
 	private String response;
 	private String email;
 	
+	
 	public AskVo() {}
 
 	public AskVo(int askNum, int memNum, String qnaTitle, String askContent, String askRegdate, String memId,
