@@ -43,7 +43,7 @@
         <ul class="pagination">
 	        <c:choose>
 				<c:when test="${pu.startPageNum>5}">
-		        	<li class="paginate_button page-item previous disabled" id="zero_config_previous">
+		        	<li class="paginate_button page-item previous" id="zero_config_previous">
 			      	  <a href="${cp }/service/reply/askList.do?pageNum=${pu.startPageNum-1 }" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
 			      	</li>
 			    </c:when>
