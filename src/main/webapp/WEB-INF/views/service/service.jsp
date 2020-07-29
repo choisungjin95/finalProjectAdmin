@@ -5,7 +5,7 @@
 	.question{
 		padding: 50px;
 	}
-	#question a img{
+	#question a img{ 
 		width: 400px;
 	}
 </style>
