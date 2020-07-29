@@ -11,7 +11,7 @@
 </style>
 <div class="container">
 	<div class="container-contact2">
-		<div id="question">
+		<div id="question" style="margin-top: 140px;">
 			<a href="${cp }/service/reply/askList.do" class="question">
 				<img alt="qna" src="${cp }/resources/images/qna.png">
 			</a>

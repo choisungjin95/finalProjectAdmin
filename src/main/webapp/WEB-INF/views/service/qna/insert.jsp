@@ -9,8 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="${cp }/resources/vendor/select2/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="${cp }/resources/css/qna/util.css">
 	<link rel="stylesheet" type="text/css" href="${cp }/resources/css/qna/main.css">
-<div class="bg-contact2"
-	style="background-image: url('${cp }/resources/images/bg-01.jpg');">
+<div class="bg-contact2">
 	<div class="container-contact2">
 		<div class="wrap-contact2">
 			<form class="contact2-form validate-form" method="post" action="${cp }/service/qna/insertOk.do">
@@ -31,7 +30,7 @@
 					<div class="container-contact2-form-btn">
 						<div class="wrap-contact2-form-btn">
 							<div class="contact2-form-bgbtn"></div>
-							<button class="contact2-form-btn">
+							<button class="contact2-form-btn" style="margin-left: 212px; background: black;">
 								등록하기
 							</button>
 						</div>

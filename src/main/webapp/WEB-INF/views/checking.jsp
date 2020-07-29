@@ -1,12 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h1 class="font-weight-light">최종관리자 입니다.</h1>
-	<div>
-		<div style="margin: auto;width: 80%;height: 80%;vertical-align: middle; border: 1px solid red;">
-		<h1>비밀번호를 입력해주세요.</h1>
+<head>
+<title>MegaCinema</title>
+<link rel="icon" type="image/png" href="${cp}/resources/logo/logo.png" />
+<link rel="stylesheet" type="text/css"
+	href="${cp }/resources/css/checking.css">
+</head>
+
+<div id="alldiv">
+	<div id="gifdiv">
+		<img alt="" src="${cp}/resources/images/jerry.gif">
+	</div>
+	<div id="checkdiv">
+		<h1>관리자 로그인</h1>
+		<h2>비밀번호를 입력해주세요.</h2>
 		<form action="${cp }/main.do" method="post">
-			<input type="password" name="pwd">
-			<input type="submit" value="확인하기.">
+			<div class="in-line" id="formdiv">
+				<input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력">
+				<input type="submit" name="name" id="btn" value="GO">
+			</div>
 		</form>
 		<span>${checkPwd }</span>
 	</div>

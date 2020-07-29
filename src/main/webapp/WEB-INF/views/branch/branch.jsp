@@ -38,7 +38,7 @@
 </style>
 <!-- 게시판 -->
 <body>
-<div class="container">
+<div class="container" style="margin-top: 33px;">
 	<table id="branch" class="table table-striped" style="width:100%">
 		<thead>
 			<tr>

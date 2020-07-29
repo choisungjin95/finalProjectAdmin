@@ -20,19 +20,17 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
-	<div class="bg-contact2"
-		style="background-image: url('${cp }/resources/images/bg-01.jpg');">
 		<div class="container-contact2">
 				<span class="contact2-form-title"> 자주하는 질문목록 </span>
 				<p></p>
-				<table class="table table-dark table-striped">
+				<table class="table table-dark table-striped" style="color: black;text-align: center;">
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th style="width: 56px;">번호</th>
 							<th>질문</th>
 							<th>답변</th>
-							<th>수정</th>
-							<th>삭제</th>
+							<th style="width: 56px;">수정</th>
+							<th style="width: 56px;">삭제</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="${cp }/">Movie</a>
+   <a class="navbar-brand" href="${cp }"> <img
+		src="${cp}/resources/logo/logo.png" width="50" height="50">MegaCinema
+	</a>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
