@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <div style="text-align: center; margin-top: 20px;">
-	<h1>영화별 수익 및 누적관람객d</h1>
+	<h1>영화별 수익 및 누적관람객</h1>
 	<div class="ui-widget">
 	영화 제목: <input id="movieIncome">
 	</div>
