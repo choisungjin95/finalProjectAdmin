@@ -146,7 +146,7 @@
 
 </script>
 
-	<div id="movieChart">
+	<div id="movieChart" style="margin-top: 30px;">
 		
 		<div id="mo_searchBox">
 			<form name="serviceAPISearchForm" id="serviceAPISearchForm"	method="post" action="" onsubmit="return false;">
