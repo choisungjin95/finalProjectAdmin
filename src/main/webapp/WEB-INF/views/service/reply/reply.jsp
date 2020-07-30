@@ -6,7 +6,7 @@
 <%-- <link href="${cp }/resources/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 <link href="${cp }/resources/dist/css/style.min.css" rel="stylesheet"> --%>
 
-<div class="card-body">
+<div class="card-body" style="width: 60%;height: 100%;margin: auto;">
     <div class="table-responsive">
         <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
         <div class="row"><div class="col-sm-12 col-md-6">

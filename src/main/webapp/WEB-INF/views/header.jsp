@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
   <div class="container">
-   <a class="navbar-brand" href="${cp }"> <img
+   <a class="navbar-brand" href="${cp }/movieinfo/moviebox.do"> <img
 		src="${cp}/resources/logo/logo.png" width="50" height="50">MegaCinema
 	</a>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="${cp }/">Home</a>
+          <a class="nav-link" href="${cp }/movieinfo/moviebox.do">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${cp }/movieinfo/movie.do">영화 구매/판매</a>

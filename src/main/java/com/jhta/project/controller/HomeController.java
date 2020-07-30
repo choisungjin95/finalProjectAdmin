@@ -24,7 +24,7 @@ public class HomeController {
 	public String main(String pwd,Model model,HttpSession session) {
 		if(pwd.equals("admin")) {
 			bl=true;
-			return ".main";
+			return ".movieinfo.moviebox";
 		}else{
 			model.addAttribute("checkPwd","비밀번호를 확인해주세요");
 			return "checking";
