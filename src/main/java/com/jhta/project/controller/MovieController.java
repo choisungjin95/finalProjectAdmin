@@ -85,7 +85,7 @@ public class MovieController {
 			Response res1 = gson.fromJson(code, Response.class);
 			System.out.println(res1.getResult());
 			if(res1.getResultCode().equals("success")) {
-				return "/result/success";
+				return ".main";
 			}else {
 				return "/result/error";
 			}
