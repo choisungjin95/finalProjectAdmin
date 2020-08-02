@@ -20,6 +20,7 @@ public class HomeController {
 			return ".main";
 		}
 	}
+	
 	@RequestMapping(value="/main.do")
 	public String main(String pwd,Model model,HttpSession session) {
 		if(pwd.equals("admin")) {
